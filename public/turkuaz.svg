@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="640" viewBox="0 0 1800 640" role="img" aria-labelledby="title desc">
+  <title id="title">Cervan taşımacılık logosu</title>
+  <desc id="desc">C harfi biçimindeki yay, yol üzerinde ilerleyen tır ve Cervan yazısı</desc>
+
+  <defs>
+    <style>
+      .navy { fill: #102A43; }
+      .teal { fill: #19AFA0; }
+      .road { fill: none; stroke: #19AFA0; stroke-width: 92; stroke-linecap: round; }
+      .lane { fill: none; stroke: #FFFFFF; stroke-width: 10; stroke-linecap: round; stroke-dasharray: 42 34; }
+      .wordmark {
+        fill: #102A43;
+        font-family: Montserrat, "Arial Black", Arial, sans-serif;
+        font-size: 190px;
+        font-weight: 800;
+        letter-spacing: 4px;
+      }
+    </style>
+  </defs>
+
+  <!-- Symbol: a protective C-shaped journey arc -->
+  <path d="M548 146 C380 22 128 104 100 327 C95 367 104 405 124 438"
+        fill="none" stroke="#102A43" stroke-width="66" stroke-linecap="round"/>
+
+  <!-- Road sits behind the truck -->
+  <path class="road" d="M128 456 C246 530 405 548 575 477"/>
+  <path class="lane" d="M128 456 C246 530 405 548 575 477"/>
+
+  <!-- Minimal semi-truck, positioned directly on the road -->
+  <g aria-label="tır">
+    <!-- trailer -->
+    <path class="navy" d="M171 261 L385 218 L385 397 L171 397 Z"/>
+    <rect x="184" y="373" width="220" height="38" rx="11" class="navy"/>
+
+    <!-- cab -->
+    <path class="navy" d="M397 272 H474 C503 272 522 289 532 318 L554 381 C560 398 550 413 532 413 H397 Z"/>
+    <path d="M420 294 H469 C484 294 493 302 499 317 L507 340 H420 Z" fill="#FFFFFF"/>
+    <path d="M480 295 C490 299 497 307 501 319 L508 340 H479 Z" fill="#19AFA0"/>
+    <rect x="518" y="354" width="29" height="12" rx="5" fill="#FFFFFF"/>
+    <rect x="520" y="377" width="31" height="9" rx="4" fill="#19AFA0"/>
+
+    <!-- chassis and wheels: bottoms align to road surface -->
+    <rect x="209" y="396" width="323" height="20" rx="8" class="navy"/>
+    <g>
+      <circle cx="247" cy="421" r="33" fill="#FFFFFF"/>
+      <circle cx="247" cy="421" r="24" class="navy"/>
+      <circle cx="247" cy="421" r="8" class="teal"/>
+      <circle cx="319" cy="421" r="33" fill="#FFFFFF"/>
+      <circle cx="319" cy="421" r="24" class="navy"/>
+      <circle cx="319" cy="421" r="8" class="teal"/>
+      <circle cx="479" cy="421" r="37" fill="#FFFFFF"/>
+      <circle cx="479" cy="421" r="27" class="navy"/>
+      <circle cx="479" cy="421" r="9" class="teal"/>
+    </g>
+  </g>
+
+  <!-- Brand name -->
+  <text x="650" y="397" class="wordmark">CERVAN</text>
+  <rect x="656" y="447" width="710" height="13" rx="6.5" class="teal"/>
+</svg>

@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { services } from '../config/site';
+---
+
+<BaseLayout title="Hizmetler | Cervan" description="Cervan’ın Türkiye geneli nakliye, taşımacılık, montaj ve demontaj hizmetleri.">
+  <section class="page-hero"><div class="container narrow"><p class="eyebrow"><span></span> Hizmetler</p><h1>Taşımacılığın her aşaması için <em>tek ekip.</em></h1><p class="lead">Evden eve taşımadan ofis nakliyesine, mobilya sökümünden yerinde kuruluma kadar ihtiyaç duyduğunuz hizmetleri bir araya getiriyoruz.</p></div></section>
+  <section class="section service-list-section"><div class="container service-list">{services.map((service) => (<article><span class="service-number">{service.number}</span><div><h2>{service.title}</h2><p>{service.description}</p></div><a class="service-arrow" href="/iletisim#teklif" aria-label={`${service.title} için teklif al`}>↗</a></article>))}</div></section>
+  <section class="cta-band"><div class="container cta-band-inner"><p>Taşıma ve kurulum ihtiyacınız için doğru planı birlikte oluşturalım.</p><a class="button button-light" href="/iletisim#teklif">Teklif Al <span aria-hidden="true">↗</span></a></div></section>
+</BaseLayout>

@@ -1,0 +1,30 @@
+---
+import { site } from '../config/site';
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="brand brand-light" href="/" aria-label={`${site.name} ana sayfa`}>
+        <img class="brand-logo" src="/turkuaz.svg" alt="Cervan" />
+      </a>
+      <p class="footer-copy">{site.serviceArea} nakliye, taşımacılık ve mobilya kurulum hizmetleri.</p>
+    </div>
+    <div class="footer-links">
+      <span class="footer-label">Hızlı erişim</span>
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/hizmetler">Hizmetler</a>
+      <a href="/iletisim">İletişim</a>
+    </div>
+    <div class="footer-links">
+      <span class="footer-label">Hizmet bölgesi</span>
+      <span>Ankara merkezli</span>
+      <span>Türkiye geneli</span>
+      <a href="/iletisim#teklif">Teklif talep et <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© {new Date().getFullYear()} {site.name}. Tüm hakları saklıdır.</span>
+    <span>Güvenli taşımanın doğru adresi.</span>
+  </div>
+</footer>

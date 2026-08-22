@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout title="Hakkımızda | Cervan" description="Cervan’ın taşımacılık ve mobilya kurulum yaklaşımını keşfedin.">
+  <section class="page-hero">
+    <div class="container narrow"><p class="eyebrow"><span></span> Hakkımızda</p><h1>Her eşyada bir hikâye, her taşımada bir <em>sorumluluk</em> görüyoruz.</h1><p class="lead">Cervan; planlı taşıma, dikkatli ekip çalışması ve doğru kurulum yaklaşımıyla Ankara’dan Türkiye geneline hizmet verir.</p></div>
+  </section>
+
+  <section class="section statement-section"><div class="container statement-grid"><p class="statement-mark">“</p><div><h2>Taşımacılığı yalnızca bir noktadan diğerine ulaşmak olarak görmüyoruz.</h2><p>Evlerin, ofislerin ve mobilyaların doğru koşullarda taşınması için her süreci özenle planlıyoruz. İhtiyacınızı dinliyor; taşıma, paketleme ve kurulum adımlarını tek bir koordinasyonla yönetiyoruz.</p><a href="/iletisim#teklif" class="button">Teklif Al <span aria-hidden="true">↗</span></a></div></div></section>
+
+  <section class="section values-section"><div class="container"><div class="section-heading"><div><p class="eyebrow"><span></span> Yaklaşımımız</p><h2>İşimizin merkezinde <em>özen</em> var.</h2></div></div><div class="values-grid"><article><span>01</span><h3>Planlı</h3><p>Taşıma gününden önce tüm ihtiyacı ve akışı birlikte netleştiririz.</p></article><article><span>02</span><h3>Özenli</h3><p>Eşyalarınızı, alanınızı ve zamanınızı aynı titizlikle ele alırız.</p></article><article><span>03</span><h3>Çözüm odaklı</h3><p>Taşıma ve kurulum ihtiyacını tek bir ekip koordinasyonunda buluştururuz.</p></article></div></div></section>
+
+  <section class="coverage-section"><div class="container coverage-grid"><div><p class="eyebrow eyebrow-light"><span></span> Hizmet ağı</p><h2>{site.location}’dan <em>Türkiye’ye.</em></h2></div><p>{site.serviceArea} şehir içi, şehirlerarası, evden eve ve ofis taşımacılığında ihtiyacınıza uygun planlama sunuyoruz.</p></div></section>
+</BaseLayout>

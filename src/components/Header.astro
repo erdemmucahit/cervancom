@@ -1,0 +1,43 @@
+---
+import { site } from '../config/site';
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const links = [
+  { href: '/', label: 'Ana Sayfa' },
+  { href: '/hakkimizda/', label: 'Hakkımızda' },
+  { href: '/hizmetler/', label: 'Hizmetler' },
+  { href: '/iletisim/', label: 'İletişim' },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${site.name} ana sayfa`}>
+      <img class="brand-logo" src="/turkuaz.svg" alt="Cervan" />
+    </a>
+
+    <nav class="desktop-nav" aria-label="Ana menü">
+      {links.map((link) => (
+        <a href={link.href} aria-current={currentPath === (link.href.replace(/\/+$/, '') || '/') ? 'page' : undefined}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <a class="button button-small header-cta" href={currentPath === '/' ? '#teklif' : '/iletisim/#teklif'}>
+      Teklif Al <span aria-hidden="true">↗</span>
+    </a>
+
+    <details class="mobile-menu">
+      <summary aria-label="Menüyü aç veya kapat"><span>Menü</span><i aria-hidden="true"></i></summary>
+      <nav aria-label="Mobil menü">
+        {links.map((link) => (
+          <a href={link.href} aria-current={currentPath === (link.href.replace(/\/+$/, '') || '/') ? 'page' : undefined}>
+            {link.label}
+          </a>
+        ))}
+        <a class="button" href={currentPath === '/' ? '#teklif' : '/iletisim/#teklif'}>Teklif Al <span aria-hidden="true">↗</span></a>
+      </nav>
+    </details>
+  </div>
+</header>
