@@ -11,14 +11,61 @@ interface Props {
 }
 
 const {
-  title = `${site.name} | Nakliye ve Mobilya Kurulum Hizmetleri`,
+  title = `${site.seoName} | Mobilya Depolama, Montaj ve Nakliye`,
   description = site.description,
   overlayHeader = false,
 } = Astro.props;
 
-const canonicalOrigin = Astro.site ?? new URL('https://www.cervan.com');
+const canonicalOrigin = Astro.site ?? new URL(site.url);
+const siteUrl = new URL('/', canonicalOrigin).toString();
 const canonicalUrl = new URL(Astro.url.pathname, canonicalOrigin).toString();
 const socialImage = new URL('/og.png', canonicalOrigin).toString();
+const logoUrl = new URL('/cervan.png', canonicalOrigin).toString();
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}#organization`,
+      name: site.seoName,
+      alternateName: site.alternateNames,
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: logoUrl,
+      },
+      description: site.description,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: site.location,
+        addressCountry: 'TR',
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'Türkiye',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      url: siteUrl,
+      name: site.seoName,
+      alternateName: site.alternateNames,
+      publisher: { '@id': `${siteUrl}#organization` },
+      inLanguage: 'tr-TR',
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: title,
+      description,
+      isPartOf: { '@id': `${siteUrl}#website` },
+      about: { '@id': `${siteUrl}#organization` },
+      inLanguage: 'tr-TR',
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -27,9 +74,11 @@ const socialImage = new URL('/og.png', canonicalOrigin).toString();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#0b2940" />
     <meta property="og:locale" content="tr_TR" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.seoName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
@@ -45,6 +94,7 @@ const socialImage = new URL('/og.png', canonicalOrigin).toString();
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/cervan.png" />
     <link rel="apple-touch-icon" href="/cervan.png" />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)}></script>
     <title>{title}</title>
   </head>
   <body class:list={{ 'has-overlay-header': overlayHeader }}>

@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro';
 
-const pages = ['/', '/hakkimizda', '/hizmetler', '/iletisim'];
+const pages = ['/', '/hakkimizda/', '/hizmetler/', '/iletisim/'];
 
 export const GET: APIRoute = ({ site }) => {
-  const origin = site ?? new URL('https://www.cervan.com');
+  const origin = site ?? new URL('https://cervanlojistik.com');
   const urls = pages
     .map((path) => `<url><loc>${new URL(path, origin).toString()}</loc></url>`)
     .join('');

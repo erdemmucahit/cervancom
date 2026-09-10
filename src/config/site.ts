@@ -1,7 +1,10 @@
 export const site = {
   name: 'Cervan',
+  seoName: 'Cervan Lojistik',
+  alternateNames: ['Cervan', 'Cervan Logistik'],
+  url: 'https://cervanlojistik.com',
   description:
-    'Türkiye geneli nakliye, taşımacılık ve mobilya kurulum hizmetleri.',
+    'Cervan Lojistik; Ankara merkezli olarak Türkiye genelinde mobilya depolama, montaj, demontaj, paketleme ve nakliye hizmetleri sunar.',
   location: 'Ankara',
   serviceArea: 'Türkiye geneli',
   contact: {
