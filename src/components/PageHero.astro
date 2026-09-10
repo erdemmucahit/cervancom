@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  eyebrow: string;
+  description: string;
+  image: ImageMetadata;
+  alt: string;
+}
+
+const { eyebrow, description, image, alt } = Astro.props;
+---
+
+<section class="page-hero" data-overlay-hero>
+  <Image
+    class="page-hero-background"
+    src={image}
+    alt={alt}
+    widths={[640, 960, 1440, 1920]}
+    sizes="100vw"
+    quality={82}
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class="page-hero-shade"></div>
+
+  <div class="container page-hero-content">
+    <p class="page-hero-eyebrow">{eyebrow}</p>
+    <h1><slot /></h1>
+    <p class="page-hero-lead">{description}</p>
+  </div>
+
+  <a class="page-hero-scroll" href="#page-content" aria-label="Sayfa içeriğine geç">
+    <span>Keşfet</span><i aria-hidden="true"></i>
+  </a>
+</section>

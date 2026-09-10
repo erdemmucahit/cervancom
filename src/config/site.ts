@@ -16,32 +16,20 @@ export const site = {
 export const services = [
   {
     number: '01',
-    title: 'Şehir İçi Nakliye',
-    description: 'Ankara içinde planlı, hızlı ve kontrollü taşıma organizasyonu.',
+    title: 'Mobilya Depolama',
+    description:
+      'Üretimden çıkan veya sevkiyat planını bekleyen mobilyalarınızı; ürün, proje ve teslimat sırasına göre düzenli biçimde depoluyoruz. Ürünlerinizi dağıtıma hazır, kontrollü ve operasyon akışınıza uygun şekilde muhafaza ediyoruz.',
   },
   {
     number: '02',
-    title: 'Şehirlerarası Nakliye',
-    description: 'Türkiye’nin her noktasına güvenli rota ve zamanında teslimat.',
+    title: 'Mobilya Montajı',
+    description:
+      'Üretici standartlarını koruyarak mağaza, ofis, konut ve proje sahalarında profesyonel montaj hizmeti sunuyoruz. Ürünlerin doğru, eksiksiz ve kullanıma hazır teslim edilmesi için tüm kurulumu deneyimli ekibimizle yönetiyoruz.',
   },
   {
     number: '03',
-    title: 'Evden Eve Taşıma',
-    description: 'Eşyalarınızı özenle paketleyen ve taşıyan uçtan uca hizmet.',
-  },
-  {
-    number: '04',
-    title: 'Ofis Taşımacılığı',
-    description: 'İş akışınızı aksatmadan kurumsal taşıma planlaması.',
-  },
-  {
-    number: '05',
-    title: 'Mobilya Montajı',
-    description: 'Mobilyalarınızın yerinde, titiz ve doğru kurulumu.',
-  },
-  {
-    number: '06',
     title: 'Demontaj & Paketleme',
-    description: 'Taşıma öncesi söküm, koruma ve düzenli paketleme desteği.',
+    description:
+      'Teşhir, transfer, iade veya yeniden kurulum süreçlerinde mobilyaları ürüne zarar vermeden demonte ediyoruz. Parçaları yüzey ve donanım özelliklerine uygun malzemelerle paketleyerek taşıma ve depolama için güvenli hale getiriyoruz.',
   },
 ] as const;

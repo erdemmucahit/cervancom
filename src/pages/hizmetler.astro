@@ -1,10 +1,41 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
 import { services } from '../config/site';
+import heroImage from '../assets/hero-services.png';
 ---
 
-<BaseLayout title="Hizmetler | Cervan" description="Cervan’ın Türkiye geneli nakliye, taşımacılık, montaj ve demontaj hizmetleri.">
-  <section class="page-hero"><div class="container narrow"><p class="eyebrow"><span></span> Hizmetler</p><h1>Taşımacılığın her aşaması için <em>tek ekip.</em></h1><p class="lead">Evden eve taşımadan ofis nakliyesine, mobilya sökümünden yerinde kuruluma kadar ihtiyaç duyduğunuz hizmetleri bir araya getiriyoruz.</p></div></section>
-  <section class="section service-list-section"><div class="container service-list">{services.map((service) => (<article><span class="service-number">{service.number}</span><div><h2>{service.title}</h2><p>{service.description}</p></div><a class="service-arrow" href="/iletisim#teklif" aria-label={`${service.title} için teklif al`}>↗</a></article>))}</div></section>
-  <section class="cta-band"><div class="container cta-band-inner"><p>Taşıma ve kurulum ihtiyacınız için doğru planı birlikte oluşturalım.</p><a class="button button-light" href="/iletisim#teklif">Teklif Al <span aria-hidden="true">↗</span></a></div></section>
+<BaseLayout title="Hizmetler | Cervan" description="Mobilya üreticileri ve dağıtıcıları için depolama, montaj, demontaj ve paketleme hizmetleri." overlayHeader>
+  <PageHero
+    eyebrow="Hizmetler"
+    description="Mobilyalarınızı üretimden depolamaya, sevkiyattan son kullanıcı kurulumuna kadar profesyonel bir operasyonla yönetiyoruz."
+    image={heroImage}
+    alt="Depoda yükleme ve mobilya taşıma operasyonu"
+  >
+    Taşımacılığın her aşaması için <em>tek ekip.</em>
+  </PageHero>
+  <section class="section service-list-section" id="page-content">
+    <div class="container service-list">
+      {services.map((service) => (
+        <article>
+          <div>
+            <h2>{service.title}</h2>
+            <p>{service.description}</p>
+          </div>
+          <a class="service-arrow" href="/iletisim/#teklif" aria-label={`${service.title} için teklif al`}>↗</a>
+        </article>
+      ))}
+    </div>
+  </section>
+  <section class="cta-band">
+    <div class="container cta-band-inner">
+      <div class="cta-band-copy">
+        <span class="cta-band-kicker">Yeni bir proje mi planlıyorsunuz?</span>
+        <p>Mobilyalarınız için depolamadan kuruluma uzanan doğru operasyonu birlikte oluşturalım.</p>
+      </div>
+      <a class="button cta-band-button" href="/iletisim/#teklif">
+        Teklif Al <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
 </BaseLayout>

@@ -1,11 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
 import { services, site } from '../config/site';
+import heroImage from '../assets/hero-contact.png';
 ---
 
-<BaseLayout title="İletişim | Cervan" description="Cervan nakliye ve kurulum hizmetleri için teklif talep edin.">
-  <section class="page-hero"><div class="container narrow"><p class="eyebrow"><span></span> İletişim</p><h1>Taşınma planınız için <em>konuşalım.</em></h1><p class="lead">İhtiyacınızı paylaşın; taşıma ve kurulum sürecinizi birlikte planlayalım.</p></div></section>
-  <section class="section contact-section"><div class="container contact-grid"><div class="contact-details"><p class="eyebrow"><span></span> Cervan</p><h2>{site.location} merkezli, <em>Türkiye geneli</em> hizmet.</h2><p>İletişim bilgileri yayına alınmadan önce bu alana eklenecektir. Şimdilik teklif formu üzerinden ihtiyacınızı paylaşabilirsiniz.</p><div class="contact-facts"><div><span>Merkez</span><strong>Ankara</strong></div><div><span>Hizmet bölgesi</span><strong>Türkiye geneli</strong></div></div></div><div class="map-frame"><iframe title="Cervan Ankara konumu" src="https://www.google.com/maps?q=Ankara&z=11&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div></section>
+<BaseLayout title="İletişim | Cervan" description="Cervan nakliye ve kurulum hizmetleri için teklif talep edin." overlayHeader>
+  <PageHero
+    eyebrow="İletişim"
+    description="İhtiyacınızı paylaşın; taşıma ve kurulum sürecinizi birlikte planlayalım."
+    image={heroImage}
+    alt="Lojistik planını müşteriyle değerlendiren Cervan çalışanı"
+  >
+    Depolama ve Montaj Çözümlerimiz İçin <em>Bize Ulaşın</em>
+  </PageHero>
+  <section class="section contact-section" id="page-content"><div class="container contact-grid"><div class="contact-details"><p class="eyebrow"><span></span> Cervan</p><h2>{site.location} merkezli, <em>Türkiye geneli</em> hizmet.</h2><p>İletişim bilgileri yayına alınmadan önce bu alana eklenecektir. Şimdilik teklif formu üzerinden ihtiyacınızı paylaşabilirsiniz.</p><div class="contact-facts"><div><span>Merkez</span><strong>Ankara</strong></div><div><span>Hizmet bölgesi</span><strong>Türkiye geneli</strong></div></div></div><div class="map-frame"><iframe title="Cervan merkez konumu" src="https://www.google.com/maps?q=40.104789,32.629454&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div></section>
   <section class="section quote-section" id="teklif"><div class="container quote-grid"><div><p class="eyebrow"><span></span> Hızlı teklif</p><h2>Size özel planı <em>başlatalım.</em></h2><p>Formdaki bilgilerle ihtiyacınızı değerlendirebilir ve en doğru hizmet planını oluşturabiliriz.</p></div><form class="quote-form" id="quote-form"><div class="form-row"><label>Ad soyad<input name="name" autocomplete="name" required /></label><label>Telefon<input name="phone" type="tel" autocomplete="tel" required /></label></div><div class="form-row"><label>E-posta<input name="email" type="email" autocomplete="email" required /></label><label>Hizmet türü<select name="service" required><option value="">Seçiniz</option>{services.map((service) => <option value={service.title}>{service.title}</option>)}</select></label></div><label>Notunuz<textarea name="message" rows="4" placeholder="Taşınacak eşya veya kurulum ihtiyacınızı kısaca yazın."></textarea></label><button class="button" type="submit">Teklif talep et <span aria-hidden="true">↗</span></button><p class="form-status" aria-live="polite"></p></form></div></section>
 </BaseLayout>
 

@@ -7,12 +7,18 @@ import { site } from '../config/site';
 interface Props {
   title?: string;
   description?: string;
+  overlayHeader?: boolean;
 }
 
 const {
   title = `${site.name} | Nakliye ve Mobilya Kurulum Hizmetleri`,
   description = site.description,
+  overlayHeader = false,
 } = Astro.props;
+
+const canonicalOrigin = Astro.site ?? new URL('https://www.cervan.com');
+const canonicalUrl = new URL(Astro.url.pathname, canonicalOrigin).toString();
+const socialImage = new URL('/og.png', canonicalOrigin).toString();
 ---
 
 <!doctype html>
@@ -26,16 +32,42 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1730" />
+    <meta property="og:image:height" content="909" />
+    <meta property="og:image:alt" content="Cervan - Lojistik, Depolama ve Kurulum" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/turkuaz.svg" />
-    <link rel="icon" type="image/jpeg" href="/turkuaz.jpg" />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content="Cervan - Lojistik, Depolama ve Kurulum" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/png" href="/cervan.png" />
+    <link rel="apple-touch-icon" href="/cervan.png" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class:list={{ 'has-overlay-header': overlayHeader }}>
     <Header />
     <main><slot /></main>
     <Footer />
+
+    <script>
+      const overlayHero = document.querySelector('[data-overlay-hero]');
+      const siteHeader = document.querySelector('.site-header');
+
+      if (overlayHero && siteHeader) {
+        const updateHeader = (isOverHero: boolean) => {
+          siteHeader.classList.toggle('is-scrolled', !isOverHero);
+        };
+
+        const observer = new IntersectionObserver(
+          ([entry]) => updateHeader(entry.isIntersecting),
+          { rootMargin: '-80px 0px 0px', threshold: 0 },
+        );
+
+        observer.observe(overlayHero);
+      }
+    </script>
   </body>
 </html>
