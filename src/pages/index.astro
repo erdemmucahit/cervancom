@@ -69,6 +69,7 @@ const serviceCards = [
           class:list={['home-slide', { 'is-active': index === 0 }]}
           data-slide={index}
           aria-hidden={index === 0 ? 'false' : 'true'}
+          inert={index !== 0}
         >
           <Image
             class="home-slide-image"
@@ -207,6 +208,7 @@ const serviceCards = [
         const isActive = index === activeIndex;
         slide.classList.toggle('is-active', isActive);
         slide.setAttribute('aria-hidden', String(!isActive));
+        slide.inert = !isActive;
       });
 
       tabs.forEach((tab, index) => {
