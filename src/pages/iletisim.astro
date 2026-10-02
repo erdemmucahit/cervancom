@@ -4,7 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import { services, site } from '../config/site';
 import heroImage from '../assets/hero-contact.png';
 
-const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '';
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || site.turnstileSiteKey;
 ---
 
 <BaseLayout title="İletişim ve Teklif | Cervan Lojistik" description="Cervan Lojistik’in mobilya depolama, nakliye ve kurulum hizmetleri için iletişime geçin ve teklif talep edin." overlayHeader>

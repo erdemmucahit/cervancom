@@ -24,7 +24,7 @@ Cloudflare panelinde **Workers & Pages → cervancom → Settings → Variables 
 | --- | --- | --- |
 | `SMTP_APP_PASSWORD` | Secret | Google’dan oluşturulan uygulama şifresi |
 | `TURNSTILE_SECRET_KEY` | Secret | Aşağıda oluşturulan Turnstile gizli anahtarı |
-| `PUBLIC_TURNSTILE_SITE_KEY` | Build ortamı değişkeni | Turnstile açık site anahtarı |
+| `PUBLIC_TURNSTILE_SITE_KEY` | İsteğe bağlı build ortamı değişkeni | Projedeki açık site anahtarını değiştirir |
 
 Şu açık ayarlar `wrangler.jsonc` içinde zaten tanımlıdır:
 
@@ -45,7 +45,7 @@ npx wrangler pages secret put TURNSTILE_SECRET_KEY --project-name cervancom
 
 ## 3. Turnstile spam koruması
 
-Cloudflare panelinde bir **Turnstile / Managed** widget oluşturun. İzin verilen hostname olarak `cervanlojistik.com` ekleyin. Açık site anahtarını `PUBLIC_TURNSTILE_SITE_KEY`, gizli anahtarı `TURNSTILE_SECRET_KEY` olarak tanımlayın. Açık anahtar derleme sırasında sayfaya eklenir; değiştiğinde yeni build gerekir.
+Cloudflare panelinde bir **Turnstile / Managed** widget oluşturun. İzin verilen hostname olarak `cervanlojistik.com` ekleyin. Açık site anahtarı `src/config/site.ts` içindeki `turnstileSiteKey` alanında kayıtlıdır. Build ortamındaki `PUBLIC_TURNSTILE_SITE_KEY` varsa bu değeri geçersiz kılar. Böylece paneldeki değişken build ortamına aktarılmasa da üretim formu doğru açık anahtarı kullanır. Eşleşen gizli anahtar yalnızca Cloudflare’da `TURNSTILE_SECRET_KEY` olarak tutulur. Açık anahtar değişirse yeni build gerekir.
 
 Backend güvenlik token’ını doğrular, hostname’in `SITE_URL` ile ve action’ın `quote` ile eşleşmesini arar. Her gönderim denemesinden sonra token yenilenir. [Turnstile doğrulaması](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/).
 
