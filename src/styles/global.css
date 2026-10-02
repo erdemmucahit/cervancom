@@ -736,6 +736,27 @@ h2 em {
   color: var(--muted);
   font-size: 12px;
 }
+.form-status[data-state="success"] {
+  color: #166534;
+}
+.contact-email {
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.form-status[data-state="error"] {
+  color: #b42318;
+}
+.quote-form .button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-honeypot {
+  display: none;
+}
+#quote-verification {
+  min-width: 0;
+}
 .page-hero {
   position: relative;
   min-height: clamp(560px, 72svh, 760px);

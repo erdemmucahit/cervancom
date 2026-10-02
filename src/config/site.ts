@@ -10,7 +10,7 @@ export const site = {
   contact: {
     // Yayına çıkmadan önce bu alanları gerçek bilgilerle güncelleyin.
     phone: '',
-    email: '',
+    email: 'info@cervanlojistik.com',
     address: '',
     whatsapp: '',
   },

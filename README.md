@@ -21,7 +21,15 @@ Firma adı, hizmet bölgesi, adres, telefon, e-posta ve WhatsApp bilgileri `src/
 
 ## Teklif formu
 
-Form arayüzü ve doğrulaması hazırdır. Canlı talep gönderimi için Cloudflare Worker üzerinde bir API endpoint’i ile Google Workspace Gmail API yetkilendirmesi eklenecek. Bu aşamada OAuth istemci bilgileri ve yenileme belirteci yalnızca Cloudflare gizli değişkenleri olarak tanımlanmalıdır; kaynak koda eklenmemelidir.
+Form, Cloudflare Pages Function olan `/api/quote` üzerinden Google Workspace SMTP ile `info@cervanlojistik.com` adresine teklif e-postası gönderir. SMTP bağlantısı `smtp.gmail.com:465` üzerinden TLS ile kurulur. Google hesabının uygulama şifresi ve Turnstile ayarları canlı gönderim için gereklidir. Google Cloud projesi veya OAuth istemcisi gerekmez.
+
+Kurulum adımları: [Teklif formu kurulumu](docs/teklif-formu.md).
+
+```bash
+npm test
+```
+
+Testler dış servislere bağlanmaz ve gerçek e-posta göndermez. `npm run dev` yalnızca Astro arayüzünü çalıştırır; API ile yerel deneme için kurulum belgesindeki Cloudflare komutlarını kullanın.
 
 ## Sayfalar
 

@@ -9,9 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "preview:pages": "npm run build && wrangler pages dev dist --port 8788",
+    "deploy:pages": "npm run build && wrangler pages deploy dist",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.2.4"
+    "astro": "^7.2.4",
+    "nodemailer": "^10.0.13"
+  },
+  "devDependencies": {
+    "wrangler": "^4.147.0"
   }
 }
