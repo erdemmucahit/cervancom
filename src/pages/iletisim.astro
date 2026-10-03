@@ -4,7 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import { services, site } from '../config/site';
 import heroImage from '../assets/hero-contact.png';
 
-const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || site.turnstileSiteKey;
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim() || '';
 ---
 
 <BaseLayout title="İletişim ve Teklif | Cervan Lojistik" description="Cervan Lojistik’in mobilya depolama, nakliye ve kurulum hizmetleri için iletişime geçin ve teklif talep edin." overlayHeader>
@@ -38,7 +38,10 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || site.turns
         <h2>Size özel planı <em>başlatalım.</em></h2>
         <p>Formdaki bilgilerle ihtiyacınızı değerlendirebilir ve en doğru hizmet planını oluşturabiliriz.</p>
       </div>
-      <form class="quote-form" id="quote-form" data-sitekey={turnstileSiteKey} aria-describedby="quote-status">
+      <form class="quote-form" id="quote-form" action="https://api.web3forms.com/submit" method="POST" aria-describedby="quote-status">
+        <input type="hidden" name="access_key" value={accessKey} />
+        <input type="hidden" name="subject" value="Cervan | Yeni teklif talebi" />
+        <input type="hidden" name="from_name" value="Cervan Lojistik" />
         <div class="form-row">
           <label>Ad soyad<input name="name" autocomplete="name" minlength="2" maxlength="100" required /></label>
           <label>Telefon<input name="phone" type="tel" autocomplete="tel" maxlength="30" required /></label>
@@ -49,19 +52,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || site.turns
         </div>
         <label>Notunuz<textarea name="message" rows="4" maxlength="4000" placeholder="Taşınacak eşya veya kurulum ihtiyacınızı kısaca yazın."></textarea></label>
         <div class="form-honeypot" aria-hidden="true" inert>
-          <label>Web sitesi<input name="website" tabindex="-1" autocomplete="off" /></label>
+          <label>Bu alanı boş bırakın<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" /></label>
         </div>
-        <div id="quote-verification"></div>
-        <button class="button" type="submit" disabled><span data-submit-label>Teklif talep et</span> <span aria-hidden="true">↗</span></button>
-        <p class="form-status" id="quote-status" role="status" aria-live="polite" aria-atomic="true">
-          {turnstileSiteKey ? 'Güvenlik doğrulaması yükleniyor…' : 'Teklif formu şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.'}
+        <button class="button" type="submit" disabled={!accessKey}><span data-submit-label>Teklif talep et</span> <span aria-hidden="true">↗</span></button>
+        <p class="form-status" id="quote-status" role="status" aria-live="polite" aria-atomic="true" data-state={accessKey ? '' : 'error'}>
+          {!accessKey && 'Teklif formu şu anda kullanılamıyor. Bize e-posta ile ulaşabilirsiniz.'}
         </p>
-        <noscript><p class="form-status">Teklif formunu kullanmak için tarayıcınızda JavaScript’i etkinleştirin.</p></noscript>
       </form>
     </div>
   </section>
+  <script>
+    import '../scripts/quote-form';
+  </script>
 </BaseLayout>
-
-<script>
-  import '../scripts/quote-form';
-</script>

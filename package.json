@@ -1,25 +1,18 @@
 {
-  "name": "cervancom",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "test": "node --experimental-strip-types --test tests/*.test.ts",
-    "check:smtp": "node --experimental-strip-types scripts/check-smtp.ts",
-    "preview:pages": "npm run build && wrangler pages dev dist --port 8788",
-    "deploy:pages": "npm run build && wrangler pages deploy dist",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^7.2.4",
-    "nodemailer": "^10.0.13"
-  },
-  "devDependencies": {
-    "wrangler": "^4.147.0"
-  }
+    "name": "cervancom",
+    "type": "module",
+    "version": "0.0.1",
+    "engines": {
+        "node": ">=22.12.0"
+    },
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "test": "node --experimental-strip-types --test tests/*.test.ts",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "astro": "^7.2.4"
+    }
 }

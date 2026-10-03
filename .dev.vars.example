@@ -1,8 +1,0 @@
-# Copy to .dev.vars for local development. Never commit real secrets.
-SITE_URL=http://localhost:8788
-SMTP_USER=info@cervanlojistik.com
-# Google app password, NOT the account sign-in password.
-SMTP_APP_PASSWORD=
-# Optional; defaults to SMTP_USER.
-QUOTE_RECIPIENT=info@cervanlojistik.com
-TURNSTILE_SECRET_KEY=

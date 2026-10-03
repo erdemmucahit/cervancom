@@ -3,8 +3,6 @@ export const site = {
   seoName: 'Cervan Lojistik',
   alternateNames: ['Cervan', 'Cervan Logistik'],
   url: 'https://cervanlojistik.com',
-  // Public widget key; the matching secret stays in Cloudflare Secrets.
-  turnstileSiteKey: '0x4AAAAAAFMJbHnF1mgZtC8y',
   description:
     'Cervan Lojistik; Ankara merkezli olarak Türkiye genelinde mobilya depolama, montaj, demontaj, paketleme ve nakliye hizmetleri sunar.',
   location: 'Ankara',

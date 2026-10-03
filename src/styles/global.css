@@ -754,9 +754,6 @@ h2 em {
 .form-honeypot {
   display: none;
 }
-#quote-verification {
-  min-width: 0;
-}
 .page-hero {
   position: relative;
   min-height: clamp(560px, 72svh, 760px);

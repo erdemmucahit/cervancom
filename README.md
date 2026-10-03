@@ -21,15 +21,11 @@ Firma adı, hizmet bölgesi, adres, telefon, e-posta ve WhatsApp bilgileri `src/
 
 ## Teklif formu
 
-Form, Cloudflare Pages Function olan `/api/quote` üzerinden Google Workspace SMTP ile `info@cervanlojistik.com` adresine teklif e-postası gönderir. SMTP bağlantısı `smtp.gmail.com:587` üzerinden zorunlu STARTTLS ile şifrelenir. Google hesabının uygulama şifresi ve Turnstile ayarları canlı gönderim için gereklidir. Google Cloud projesi veya OAuth istemcisi gerekmez.
+Form tarayıcıdan Web3Forms'a doğrudan gönderilir. SMTP, Google uygulama şifresi ve Cloudflare mail backend'i kaldırılmıştır. `info@cervanlojistik.com` için oluşturulan Access Key, `.env` ve Cloudflare Pages build ortamında `PUBLIC_WEB3FORMS_ACCESS_KEY` olarak tanımlanır. CAPTCHA kutusu yoktur; görünmez spam alanı bulunur.
 
 Kurulum adımları: [Teklif formu kurulumu](docs/teklif-formu.md).
 
-```bash
-npm test
-```
-
-Testler dış servislere bağlanmaz ve gerçek e-posta göndermez. `npm run dev` yalnızca Astro arayüzünü çalıştırır; API ile yerel deneme için kurulum belgesindeki Cloudflare komutlarını kullanın.
+`npm test` gerçek mail göndermeden formun davranışını kontrol eder. `npm run dev` ile form yerelde kullanılabilir; gerçek anahtarla gönderim gerçek mail yollar. Web3Forms'un ücretsiz kotası ayda 250 gönderimdir.
 
 ## Sayfalar
 
