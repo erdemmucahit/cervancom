@@ -5,7 +5,7 @@ import { createTransport } from 'nodemailer';
 import { sendQuoteEmail } from '../server/smtp.ts';
 
 // This loopback-only SMTP fixture never relays messages or contacts Google.
-async function smtpFixture(failure: 'auth' | 'recipient' | 'data' | undefined = undefined) {
+async function smtpFixture(failure: 'auth' | 'recipient' | 'data' | 'tls' | undefined = undefined) {
   const commands: string[] = [];
   let message = '';
   const server = createServer((socket) => {
@@ -47,13 +47,14 @@ async function smtpFixture(failure: 'auth' | 'recipient' | 'data' | undefined = 
       assert.equal(typeof options, 'object');
       const config = options as Record<string, unknown>;
       assert.equal(config.host, 'smtp.gmail.com');
-      assert.equal(config.port, 465);
-      assert.equal(config.secure, true);
+      assert.equal(config.port, 587);
+      assert.equal(config.secure, false);
+      assert.equal(config.requireTLS, true);
       assert.deepEqual(config.tls, { servername: 'smtp.gmail.com', rejectUnauthorized: true });
       assert.equal(config.logger, false);
       return createTransport({
         ...config, host: '127.0.0.1', port: address.port,
-        secure: false, ignoreTLS: true, tls: undefined, getSocket: undefined,
+        secure: false, requireTLS: failure === 'tls', ignoreTLS: failure !== 'tls', tls: undefined, getSocket: undefined,
       });
     },
     close: () => new Promise<void>((resolve) => server.close(() => resolve())),
@@ -62,6 +63,16 @@ async function smtpFixture(failure: 'auth' | 'recipient' | 'data' | undefined = 
 
 const credentials = { SMTP_USER: 'info@example.com', SMTP_APP_PASSWORD: 'abcd efgh ijkl mnop' };
 const email = { to: 'quotes@example.com', replyTo: 'customer@example.com', text: 'Çağrı Öztürk\r\nMobilya depolama, İstanbul.' };
+
+test('STARTTLS rejection prevents credentials and message from being sent', async () => {
+  const fixture = await smtpFixture('tls');
+  try {
+    await assert.rejects(sendQuoteEmail(credentials, email, fixture.transport));
+    assert.ok(fixture.commands.includes('STARTTLS'));
+    assert.ok(!fixture.commands.some((command) => command.startsWith('AUTH') || command.startsWith('MAIL FROM')));
+    assert.equal(fixture.message(), '');
+  } finally { await fixture.close(); }
+});
 
 test('SMTP authenticates, transmits UTF-8 MIME and waits for final acceptance', async () => {
   const fixture = await smtpFixture();

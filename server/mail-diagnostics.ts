@@ -9,6 +9,7 @@ export function mailDiagnostics(error: unknown) {
   const commands = new Set(['CONN', 'EHLO', 'HELO', 'STARTTLS', 'AUTH', 'AUTH PLAIN', 'AUTH LOGIN', 'MAIL FROM', 'RCPT TO', 'DATA']);
   // Translate exact known messages to fixed labels; never echo raw messages.
   const reason = value.message === 'smtp-connect-timeout' ? 'TLS_CONNECT_TIMEOUT'
+    : value.message === 'smtp-tcp-connect-timeout' ? 'TCP_CONNECT_TIMEOUT'
     : value.message === 'Greeting never received' ? 'SMTP_GREETING_TIMEOUT' : undefined;
   return {
     code: typeof value.code === 'string' && codes.has(value.code) ? value.code

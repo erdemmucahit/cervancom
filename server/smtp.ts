@@ -1,5 +1,5 @@
 import { createTransport, type SMTPTransportOptions } from 'nodemailer';
-import { connect } from 'node:tls';
+import { connect } from 'node:net';
 
 export interface SmtpCredentials {
   SMTP_USER: string;
@@ -15,8 +15,10 @@ export interface QuoteEmail {
 export function smtpOptions(credentials: SmtpCredentials): SMTPTransportOptions {
   return {
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false,
+    // Upgrade with STARTTLS before authentication; never fall back to plaintext.
+    requireTLS: true,
     name: 'cervanlojistik.com',
     auth: {
       user: credentials.SMTP_USER,
@@ -27,23 +29,23 @@ export function smtpOptions(credentials: SmtpCredentials): SMTPTransportOptions 
     // Let Cloudflare resolve the hostname itself. Nodemailer's pre-resolved
     // IP connection fails in workerd; keep SNI and certificate checks intact.
     getSocket(_options, callback) {
-      const socket = connect({ host: 'smtp.gmail.com', port: 465, servername: 'smtp.gmail.com', rejectUnauthorized: true });
-      const timer = setTimeout(() => socket.destroy(Object.assign(new Error('smtp-connect-timeout'), {
+      const socket = connect({ host: 'smtp.gmail.com', port: 587 });
+      const timer = setTimeout(() => socket.destroy(Object.assign(new Error('smtp-tcp-connect-timeout'), {
         code: 'ETIMEDOUT', command: 'CONN',
       })), 8000);
       const onError = (error: Error) => {
         clearTimeout(timer);
-        socket.removeListener('secureConnect', onConnect);
+        socket.removeListener('connect', onConnect);
         socket.destroy();
         callback(error);
       };
       const onConnect = () => {
         clearTimeout(timer);
         socket.removeListener('error', onError);
-        callback(null, { connection: socket, secured: true });
+        callback(null, { connection: socket, secured: false });
       };
       socket.once('error', onError);
-      socket.once('secureConnect', onConnect);
+      socket.once('connect', onConnect);
     },
     dnsTimeout: 5000,
     connectionTimeout: 8000,

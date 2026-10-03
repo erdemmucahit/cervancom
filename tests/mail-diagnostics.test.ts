@@ -18,6 +18,8 @@ test('unexpected diagnostic properties cannot disclose credentials or customer a
 });
 
 test('timeouts identify whether TLS or the SMTP greeting was missing without copying messages', () => {
+  assert.deepEqual(mailDiagnostics(Object.assign(new Error('smtp-tcp-connect-timeout'), { code: 'ETIMEDOUT', command: 'CONN' })),
+    { code: 'ETIMEDOUT', command: 'CONN', reason: 'TCP_CONNECT_TIMEOUT' });
   assert.deepEqual(mailDiagnostics(Object.assign(new Error('smtp-connect-timeout'), { code: 'ETIMEDOUT', command: 'CONN' })),
     { code: 'ETIMEDOUT', command: 'CONN', reason: 'TLS_CONNECT_TIMEOUT' });
   assert.deepEqual(mailDiagnostics({ code: 'ETIMEDOUT', message: 'Greeting never received' }),

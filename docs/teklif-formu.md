@@ -2,7 +2,7 @@
 
 Site Cloudflare Pages üzerinde çalışır: proje **cervancom**, varsayılan adres **https://cervancom.pages.dev**, üretim adresi **https://cervanlojistik.com**. Gönderici ve teklif alıcısı **info@cervanlojistik.com** olarak ayarlanmıştır.
 
-Formun backend’i `smtp.gmail.com:465` sunucusuna TLS ile bağlanır. Hesaba özel uygulama şifresi kullanılır. Google Cloud projesi, Gmail API ve OAuth istemcisi bu yöntemde gerekmez.
+Formun backend’i `smtp.gmail.com:587` sunucusuna bağlanır ve zorunlu STARTTLS ile şifrelemeyi başlatır. TLS kurulmadan hesap şifresi veya e-posta gönderilmez. Hesaba özel uygulama şifresi kullanılır. Google Cloud projesi, Gmail API ve OAuth istemcisi bu yöntemde gerekmez.
 
 ## 1. Google uygulama şifresi
 
@@ -53,7 +53,7 @@ Backend güvenlik token’ını doğrular, hostname’in `SITE_URL` ile ve actio
 
 Build komutu **`npm run build`**, çıktı klasörü **`dist`**. Git bağlantılı Pages yayınına kökteki `functions/` dizini de dahil olmalıdır. `dist` klasörünü tek başına sürükleyerek yüklemek backend’i yayınlamaz.
 
-`wrangler.jsonc`, `cervancom` projesinin Pages yapılandırmasıdır ve Node.js uyumluluğunu içerir. SMTP kodu Nodemailer ve `node:tls` kullanır. Bağlantı Cloudflare’ın alan adını çözmesiyle kurulur; sertifika doğrulaması açık tutulur. [Cloudflare TLS desteği](https://developers.cloudflare.com/workers/runtime-apis/nodejs/tls/).
+`wrangler.jsonc`, `cervancom` projesinin Pages yapılandırmasıdır ve Node.js uyumluluğunu içerir. SMTP kodu Nodemailer, `node:net` ve STARTTLS yükseltmesinde `node:tls` kullanır. Bağlantı Cloudflare’ın alan adını çözmesiyle kurulur; TLS zorunludur ve sertifika doğrulaması açık tutulur. [Cloudflare TLS desteği](https://developers.cloudflare.com/workers/runtime-apis/nodejs/tls/).
 
 Anahtarlar tanımlandıktan sonra mevcut Git yayın akışını kullanın. CLI ile canlı yayın alternatifi:
 
@@ -71,7 +71,7 @@ Yalnızca Google SMTP bağlantısını ve uygulama şifresini sınamak için `.d
 
 ## 502 hatasını inceleme
 
-Logdaki `outcome: "ok"`, e-posta gönderildiği anlamına gelmez: yakalanan SMTP hatasında fonksiyon normal tamamlanır, fakat HTTP yanıtı `502` olur. `TLS_CONNECT_TIMEOUT`, 465 portunda güvenli bağlantının 8 saniyede kurulamadığını; `SMTP_GREETING_TIMEOUT`, bağlantı sonrasında SMTP karşılama yanıtının gelmediğini belirtir. Yerelde başarılı şifre testi, Cloudflare'dan Google'a bağlantıyı doğrulamaz.
+Logdaki `outcome: "ok"`, e-posta gönderildiği anlamına gelmez: yakalanan SMTP hatasında fonksiyon normal tamamlanır, fakat HTTP yanıtı `502` olur. `TCP_CONNECT_TIMEOUT`, 587 portuna bağlantının 8 saniyede kurulamadığını; `SMTP_GREETING_TIMEOUT`, bağlantı sonrasında SMTP karşılama yanıtının gelmediğini belirtir. Önceki 465 portlu sürümdeki `TLS_CONNECT_TIMEOUT` nedeniyle 587 + zorunlu STARTTLS seçeneğine geçilmiştir. Yerelde başarılı şifre testi, Cloudflare'dan Google'a bağlantıyı doğrulamaz.
 
 Cloudflare projesinde **Deployments → son Production deployment → Functions → Begin log stream** bölümünü açıp formu bir kez gönderin. `Quote request failed at turnstile` doğrulama servisi isteğinin, `Quote request failed at smtp-send` ise e-posta gönderiminin hata verdiğini gösterir. Yeni kod yayınlandığında log satırında yalnızca izin verilen teknik kodlar bulunur: örneğin `EAUTH` Google oturum açma reddini, `ESOCKET` bağlantı sorununu, `ETIMEDOUT` zaman aşımını belirtir. Ham sağlayıcı yanıtı, şifre ve müşteri bilgileri loglanmaz. Tarayıcıdaki genel 502 yanıtı tek başına bu nedenleri ayırt etmez.
 

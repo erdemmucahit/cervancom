@@ -21,7 +21,7 @@ Firma adı, hizmet bölgesi, adres, telefon, e-posta ve WhatsApp bilgileri `src/
 
 ## Teklif formu
 
-Form, Cloudflare Pages Function olan `/api/quote` üzerinden Google Workspace SMTP ile `info@cervanlojistik.com` adresine teklif e-postası gönderir. SMTP bağlantısı `smtp.gmail.com:465` üzerinden TLS ile kurulur. Google hesabının uygulama şifresi ve Turnstile ayarları canlı gönderim için gereklidir. Google Cloud projesi veya OAuth istemcisi gerekmez.
+Form, Cloudflare Pages Function olan `/api/quote` üzerinden Google Workspace SMTP ile `info@cervanlojistik.com` adresine teklif e-postası gönderir. SMTP bağlantısı `smtp.gmail.com:587` üzerinden zorunlu STARTTLS ile şifrelenir. Google hesabının uygulama şifresi ve Turnstile ayarları canlı gönderim için gereklidir. Google Cloud projesi veya OAuth istemcisi gerekmez.
 
 Kurulum adımları: [Teklif formu kurulumu](docs/teklif-formu.md).
 
