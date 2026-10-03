@@ -8,11 +8,13 @@ export const site = {
   location: 'Ankara',
   serviceArea: 'Türkiye geneli',
   contact: {
-    // Yayına çıkmadan önce bu alanları gerçek bilgilerle güncelleyin.
-    phone: '',
+    phone: '+90 543 610 61 08',
+    phoneHref: 'tel:+905436106108',
     email: 'info@cervanlojistik.com',
     address: '',
-    whatsapp: '',
+    whatsapp: 'https://wa.me/905436106108',
+    instagram: 'https://www.instagram.com/cervan.lojistik/',
+    instagramHandle: '@cervan.lojistik',
   },
 } as const;
 

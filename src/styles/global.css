@@ -195,6 +195,7 @@ textarea {
   margin-left: auto;
 }
 .desktop-nav a {
+  white-space: nowrap;
   color: var(--muted);
   font-size: 14px;
   font-weight: 700;
@@ -236,6 +237,10 @@ textarea {
   min-height: 44px;
   padding: 10px 16px;
   font-size: 13px;
+}
+.header-cta {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .mobile-menu {
   display: none;
@@ -1075,9 +1080,68 @@ h2 em {
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.6fr 0.7fr 0.8fr;
+  grid-template-columns: 1.4fr 1fr 1fr;
   gap: 50px;
   padding-bottom: 55px;
+}
+.footer-grid > div {
+  min-width: 0;
+}
+.footer-links a {
+  overflow-wrap: anywhere;
+}
+.contact-channels {
+  display: grid;
+  gap: 16px;
+  margin: 24px 0;
+}
+.contact-channels dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+.contact-channels dd {
+  margin: 0;
+  font-weight: 700;
+}
+.contact-channels a:hover {
+  color: var(--coral);
+}
+.form-notice {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.form-notice a,
+.legal-copy a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.legal-copy {
+  margin-inline: auto;
+  overflow-wrap: anywhere;
+}
+.legal-copy h1 {
+  max-width: 100%;
+  font-size: clamp(36px, 5vw, 60px);
+}
+.legal-copy section {
+  margin-top: 32px;
+}
+.legal-copy h2 {
+  margin-bottom: 14px;
+  font-size: clamp(24px, 3vw, 30px);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+.legal-copy p,
+.legal-copy li {
+  color: var(--muted);
+}
+.legal-copy ul {
+  padding-left: 24px;
+}
+.legal-copy li + li {
+  margin-top: 8px;
 }
 .brand-light .brand-mark span {
   border-color: white;
@@ -1116,6 +1180,18 @@ h2 em {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   color: #8fa2ae;
   font-size: 11px;
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .header-inner {
+    gap: 18px;
+  }
+  .desktop-nav {
+    gap: 18px;
+  }
+  .header-cta {
+    padding-inline: 12px;
+    font-size: 12px;
+  }
 }
 @media (max-width: 900px) {
   .desktop-nav,

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout title="KVKK Aydınlatma Metni | Cervan Lojistik" description="Cervan Lojistik iletişim ve teklif formunda paylaşılan kişisel verilerin işlenmesi, saklanması ve ilgili kişi hakları hakkında bilgilendirme.">
+  <section class="section">
+    <div class="container">
+      <article class="narrow legal-copy">
+        <p class="eyebrow"><span></span> Kişisel verilerin korunması</p>
+        <h1>KVKK <em>Aydınlatma Metni</em></h1>
+        <p>Bu metin, web sitemizdeki iletişim ve teklif formu üzerinden paylaştığınız kişisel veriler hakkında sizi bilgilendirir.</p>
+
+        <section aria-labelledby="veri-sorumlusu">
+          <h2 id="veri-sorumlusu">Veri Sorumlusu</h2>
+          <p>Cervan Lojistik, web sitesi üzerinden alınan iletişim ve teklif talepleri kapsamında kişisel verilerinizi veri sorumlusu olarak işler.</p>
+        </section>
+        <section aria-labelledby="kisisel-veriler">
+          <h2 id="kisisel-veriler">İşlenen Kişisel Veriler</h2>
+          <p>Formda kendinizin ilettiği ad soyad, telefon numarası, e-posta adresi, hizmet tercihi ve isteğe bağlı mesaj/not içeriği işlenir. Mesajınızda talebiniz için gerekli olmayan kişisel bilgileri paylaşmamanızı rica ederiz.</p>
+        </section>
+        <section aria-labelledby="isleme-amaclari">
+          <h2 id="isleme-amaclari">İşleme Amaçları</h2>
+          <ul>
+            <li>İletişim taleplerinin yanıtlanması,</li>
+            <li>Talebinize uygun teklif hazırlanması,</li>
+            <li>Talep edilen hizmet hakkında sizinle iletişim kurulması,</li>
+            <li>Müşteri iletişim sürecinin yürütülmesi.</li>
+          </ul>
+        </section>
+        <section aria-labelledby="toplama-yontemi">
+          <h2 id="toplama-yontemi">Toplama Yöntemi ve Hukuki Sebep</h2>
+          <p>Veriler, web sitesindeki form aracılığıyla elektronik ortamda doğrudan sizden alınır. Teklif ve hizmet taleplerinin değerlendirilmesinde, 6698 sayılı Kanun'un 5/2(c) maddesindeki sözleşmenin kurulması veya ifasıyla doğrudan ilgili ve gerekli olma şartına dayanılır. Diğer iletişim taleplerinin yanıtlanmasında, temel hak ve özgürlüklerinize zarar vermemek kaydıyla, 5/2(f) maddesindeki meşru menfaat şartı esas alınır.</p>
+        </section>
+        <section aria-labelledby="aktarim">
+          <h2 id="aktarim">Verilerin Aktarılması</h2>
+          <p>Form, Web3Forms altyapısını kullanır. Formda paylaştığınız bilgiler, talebinizin teknik olarak iletilmesi amacıyla Web3Forms hizmet sağlayıcısının ve e-posta hizmetinin altyapısından geçebilir.</p>
+        </section>
+        <section aria-labelledby="saklama">
+          <h2 id="saklama">Saklama</h2>
+          <p>Verileriniz, talebinizin değerlendirilmesi ve iletişim sürecinin yürütülmesi için gerekli süre boyunca, varsa ilgili mevzuattaki saklama yükümlülükleri dikkate alınarak saklanır. İşleme ve saklama gerekliliği sona erdiğinde ilgili mevzuata uygun şekilde silinir, yok edilir veya anonim hale getirilir.</p>
+        </section>
+        <section aria-labelledby="haklar">
+          <h2 id="haklar">Kullanıcının Hakları</h2>
+          <p>6698 sayılı Kanun'un 11. maddesi kapsamında:</p>
+          <ul>
+            <li>Verilerinizin işlenip işlenmediğini öğrenebilir ve işlenmişse bilgi talep edebilirsiniz.</li>
+            <li>İşleme amacını, amacına uygun kullanılıp kullanılmadığını ve verilerin aktarıldığı üçüncü kişileri öğrenebilirsiniz.</li>
+            <li>Eksik veya yanlış işlenen verilerin düzeltilmesini, şartları oluştuğunda silinmesini veya yok edilmesini ve bu işlemlerin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteyebilirsiniz.</li>
+            <li>Yalnızca otomatik sistemlerle yapılan analiz sonucu aleyhinize bir sonuç çıkmasına itiraz edebilir; hukuka aykırı işleme nedeniyle zarara uğramanız halinde zararın giderilmesini talep edebilirsiniz.</li>
+          </ul>
+        </section>
+        <section aria-labelledby="kvkk-iletisim">
+          <h2 id="kvkk-iletisim">İletişim</h2>
+          <p>Kişisel verilerinizle ilgili başvuru yöntemi ve talepleriniz için <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> adresinden bize ulaşabilir veya <a href="/iletisim/">iletişim sayfamızı</a> ziyaret edebilirsiniz.</p>
+        </section>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

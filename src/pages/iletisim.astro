@@ -21,8 +21,13 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim() || '';
       <div class="contact-details">
         <p class="eyebrow"><span></span> Cervan</p>
         <h2>{site.location} merkezli, <em>Türkiye geneli</em> hizmet.</h2>
-        <p>Taşıma, depolama ve kurulum ihtiyaçlarınız için bize e-posta ile ulaşabilirsiniz.</p>
+        <p>Taşıma, depolama ve kurulum ihtiyaçlarınız için bize telefon, WhatsApp veya e-posta ile ulaşabilirsiniz.</p>
         <p><a class="contact-email" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
+        <dl class="contact-channels">
+          <div><dt>Telefon</dt><dd><a href={site.contact.phoneHref}>{site.contact.phone}</a></dd></div>
+          <div><dt>WhatsApp</dt><dd><a href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp'tan Yazın <span aria-hidden="true">↗</span></a></dd></div>
+          <div><dt>Instagram</dt><dd><a href={site.contact.instagram} target="_blank" rel="noopener noreferrer">{site.contact.instagramHandle} <span aria-hidden="true">↗</span></a></dd></div>
+        </dl>
         <div class="contact-facts">
           <div><span>Merkez</span><strong>{site.location}</strong></div>
           <div><span>Hizmet bölgesi</span><strong>{site.serviceArea}</strong></div>
@@ -55,6 +60,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim() || '';
           <label>Bu alanı boş bırakın<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" /></label>
         </div>
         <button class="button" type="submit" disabled={!accessKey}><span data-submit-label>Teklif talep et</span> <span aria-hidden="true">↗</span></button>
+        <p class="form-notice">Formdaki kişisel verileriniz, talebinizin yanıtlanması ve teklif hazırlanması amacıyla işlenir. Ayrıntılar için <a href="/kvkk/">KVKK Aydınlatma Metni</a>'ni inceleyebilirsiniz.</p>
         <p class="form-status" id="quote-status" role="status" aria-live="polite" aria-atomic="true" data-state={accessKey ? '' : 'error'}>
           {!accessKey && 'Teklif formu şu anda kullanılamıyor. Bize e-posta ile ulaşabilirsiniz.'}
         </p>
