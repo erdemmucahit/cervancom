@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "check:smtp": "node --experimental-strip-types scripts/check-smtp.ts",
     "preview:pages": "npm run build && wrangler pages dev dist --port 8788",
     "deploy:pages": "npm run build && wrangler pages deploy dist",
     "astro": "astro"

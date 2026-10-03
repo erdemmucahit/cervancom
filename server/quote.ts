@@ -1,5 +1,6 @@
 import { services, site } from '../src/config/site.ts';
 import { sendQuoteEmail } from './smtp.ts';
+import { mailDiagnostics } from './mail-diagnostics.ts';
 
 export interface QuoteEnv {
   SITE_URL?: string;
@@ -130,9 +131,9 @@ export async function handleQuote(
       to: recipient, replyTo: email, text: body,
     });
     return reply(200, 'Teklif talebiniz iletildi. En kısa sürede sizinle iletişime geçeceğiz.');
-  } catch {
+  } catch (error) {
     // Do not log customer data, provider responses or credentials.
-    console.error(`Quote request failed at ${stage}`);
+    console.error(`Quote request failed at ${stage}`, mailDiagnostics(error));
     return reply(502, 'Gönderim onaylanamadı. Lütfen biraz sonra tekrar deneyin.');
   }
 }

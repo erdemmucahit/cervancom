@@ -28,7 +28,9 @@ export function smtpOptions(credentials: SmtpCredentials): SMTPTransportOptions 
     // IP connection fails in workerd; keep SNI and certificate checks intact.
     getSocket(_options, callback) {
       const socket = connect({ host: 'smtp.gmail.com', port: 465, servername: 'smtp.gmail.com', rejectUnauthorized: true });
-      const timer = setTimeout(() => socket.destroy(new Error('smtp-connect-timeout')), 8000);
+      const timer = setTimeout(() => socket.destroy(Object.assign(new Error('smtp-connect-timeout'), {
+        code: 'ETIMEDOUT', command: 'CONN',
+      })), 8000);
       const onError = (error: Error) => {
         clearTimeout(timer);
         socket.removeListener('secureConnect', onConnect);

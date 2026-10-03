@@ -67,6 +67,18 @@ Form yalnızca SMTP sunucusu mesajı kabul ettiğinde başarı gösterir. SMTP k
 
 ## 5. Yerel kontrol
 
+Yalnızca Google SMTP bağlantısını ve uygulama şifresini sınamak için `.dev.vars.example` dosyasını `.dev.vars` olarak kopyalayın; `SMTP_USER` ve `SMTP_APP_PASSWORD` alanlarını doldurup `npm run check:smtp` çalıştırın. Bu kontrol e-posta göndermez ve Turnstile anahtarı gerektirmez. Google'ın şifrede gösterdiği boşluklar temizlenir. Cloudflare'daki gizli değerler bilgisayarınıza otomatik aktarılmaz. Yerel başarı, Cloudflare bağlantısını veya mesaj teslimini doğrulamaz.
+
+## 502 hatasını inceleme
+
+Logdaki `outcome: "ok"`, e-posta gönderildiği anlamına gelmez: yakalanan SMTP hatasında fonksiyon normal tamamlanır, fakat HTTP yanıtı `502` olur. `TLS_CONNECT_TIMEOUT`, 465 portunda güvenli bağlantının 8 saniyede kurulamadığını; `SMTP_GREETING_TIMEOUT`, bağlantı sonrasında SMTP karşılama yanıtının gelmediğini belirtir. Yerelde başarılı şifre testi, Cloudflare'dan Google'a bağlantıyı doğrulamaz.
+
+Cloudflare projesinde **Deployments → son Production deployment → Functions → Begin log stream** bölümünü açıp formu bir kez gönderin. `Quote request failed at turnstile` doğrulama servisi isteğinin, `Quote request failed at smtp-send` ise e-posta gönderiminin hata verdiğini gösterir. Yeni kod yayınlandığında log satırında yalnızca izin verilen teknik kodlar bulunur: örneğin `EAUTH` Google oturum açma reddini, `ESOCKET` bağlantı sorununu, `ETIMEDOUT` zaman aşımını belirtir. Ham sağlayıcı yanıtı, şifre ve müşteri bilgileri loglanmaz. Tarayıcıdaki genel 502 yanıtı tek başına bu nedenleri ayırt etmez.
+
+Turnstile'ın `/pat/` isteğindeki 401, desteklenmeyen Private Access Token denemesi olabilir. Widget doğrulamayı tamamlayıp token üretiyorsa bu yanıt için işlem gerekmez. [Cloudflare hata açıklaması](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/).
+
+## Formun tamamını yerelde deneme
+
 `.env.example` dosyasını `.env`, `.dev.vars.example` dosyasını `.dev.vars` olarak kopyalayıp kendi değerlerinizi doldurun. Bunlar Git tarafından yok sayılır. Yerel origin `http://localhost:8788` olmalıdır; ayrı geliştirme Turnstile widget’ında `localhost` adresine izin verin.
 
 ```bash
