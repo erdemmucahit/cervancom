@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/demo.css';
+
+const steps = [
+  ['01', 'Ürün kabulü', 'Depo & kalite kontrol'],
+  ['02', 'Randevu', 'Müşteri portalı'],
+  ['03', 'Sevkiyat planı', 'Araç & ekip atama'],
+  ['04', 'Yolculuk', 'Teslimat takibi'],
+  ['05', 'Teslimat', 'Montaj & teslim kanıtı'],
+  ['06', 'Bayi raporu', 'Operasyonun kapanışı'],
+];
+---
+
+<BaseLayout title="Operasyon Demosu | Cervan Lojistik" description="Depodan müşteriye: Cervan'ın örnek verilerle çalışan interaktif lojistik operasyon demosunu keşfedin.">
+  <div class="demo-page" data-demo>
+    <div class="container">
+      <div class="demo-heading">
+        <div><p class="eyebrow"><span></span> CERVAN / DİJİTAL OPERASYON</p><h1>Depodan eve.<br /><em>Her adım kontrol altında.</em></h1><p>Bir mobilya siparişinin yolculuğunu, baştan sona deneyimleyin.</p></div>
+        <div class="demo-heading-actions"><span class="demo-pill"><i></i> İnteraktif demo</span><button class="demo-reset" type="button" data-reset>↺ Demoyu sıfırla</button></div>
+      </div>
+      <div class="demo-notice">SUNUM MODU <span>Tüm kişi ve siparişler örnektir. Bildirimler, konum ve teslimat belgeleri simülasyondur. Veriler kaydedilmez.</span></div>
+
+      <section class="demo-workspace" aria-label="Örnek operasyon paneli">
+        <aside class="demo-sidebar">
+          <div class="demo-sidebar-title">SİPARİŞİN YOLCULUĞU</div>
+          <nav aria-label="Demo adımları">
+            {steps.map(([number, label, subtitle], index) => <button type="button" class:list={['demo-step', {'is-current': index === 0}]} data-step={index} aria-current={index === 0 ? 'step' : undefined}><span class="demo-step-number">{number}</span><span><strong>{label}</strong><small>{subtitle}</small></span><span class="demo-step-check" aria-hidden="true"></span></button>)}
+          </nav>
+          <div class="demo-scenario"><span>ÖRNEK SENARYO</span><strong>Bir evin yeni hikâyesi.</strong><p>1 müşteri, 3 parça mobilya.<br />Ankara içi teslimat ve montaj.</p><div>Fabrika → Depo → Müşteri</div></div>
+        </aside>
+
+        <div class="demo-main">
+          <div class="demo-order-header"><div><span class="demo-overline">SİPARİŞ / CVN-2026-1042</span><h2>Deniz Yılmaz</h2><p>Örnek Mobilya · Çankaya, Ankara</p></div><span class="demo-status" data-order-status>Ürünler bekleniyor</span></div>
+          <div class="demo-metrics"><div><span>Ürün kabulü</span><strong data-count>0 <small>/ 3 ürün</small></strong></div><div><span>Teslimat randevusu</span><strong class="demo-metric-text" data-date-summary>Henüz seçilmedi</strong></div><div><span>Atanan araç</span><strong class="demo-metric-text" data-vehicle-summary>Planlanmadı</strong></div></div>
+
+          <div class="demo-panel" data-panel="0">
+            <div class="demo-panel-heading"><div><span class="demo-overline">01 / DEPO OPERASYONU</span><h3>Her parça, doğru siparişe.</h3><p>Örnek barkodları kabul ederek ürünleri depoya alın.</p></div><span class="demo-icon" aria-hidden="true">▥</span></div>
+            <div class="demo-products">
+              {[['CVN-1042-01', 'Luna üçlü koltuk', 'Kum beji · 1 adet', '01'], ['CVN-1042-02', 'Luna berjer', 'Zeytin yeşili · 1 adet', '02'], ['CVN-1042-03', 'Meşe orta sehpa', 'Doğal meşe · 1 adet', '03']].map(([barcode, name, detail, number], index) => <div class="demo-product"><div class="demo-product-icon" aria-hidden="true">{number}</div><div><strong>{name}</strong><span>{detail}</span><code>{barcode}</code></div><button type="button" class="demo-secondary" data-receive={index}>Ürünü kabul et <span aria-hidden="true">＋</span></button></div>)}
+            </div>
+            <div class="demo-callout" data-inbound-note>Her kabulde bayi bildirimi oluşturulur. Üç ürünün tamamı kabul edildiğinde randevu adımı açılır.</div>
+            <div class="demo-panel-footer"><span>Kontrol: ambalaj ve ürünler sağlam</span><button type="button" class="demo-primary" data-next="1" disabled>Randevuya geç →</button></div>
+          </div>
+
+          <div class="demo-panel" data-panel="1" hidden>
+            <div class="demo-panel-heading"><div><span class="demo-overline">02 / MÜŞTERİ PORTALI ÖNİZLEMESİ</span><h3>Size ne zaman gelelim?</h3><p>Siparişiniz hazır. Teslimat ve montaj için uygun zamanı seçin.</p></div><span class="demo-icon" aria-hidden="true">▦</span></div>
+            <form data-schedule-form>
+              <fieldset class="demo-dates"><legend>Teslimat günü · Ekim 2026</legend>{[['2026-10-19', '19', 'Pazartesi'], ['2026-10-20', '20', 'Salı'], ['2026-10-21', '21', 'Çarşamba']].map(([value, day, name], index) => <label><input type="radio" name="date" value={value} checked={index === 0} /><span><strong>{day}</strong><small>{name}</small></span></label>)}</fieldset>
+              <fieldset class="demo-slots"><legend>Saat aralığı</legend><label><input type="radio" name="slot" value="09.00 – 13.00" checked /><span>Sabah <small>09.00 – 13.00</small></span></label><label><input type="radio" name="slot" value="13.00 – 18.00" /><span>Öğleden sonra <small>13.00 – 18.00</small></span></label></fieldset>
+              <div class="demo-callout">Adres: Örnek Mahallesi, Demo Sokak No: 12, Çankaya / Ankara</div>
+              <div class="demo-panel-footer"><span>Örnek randevu bağlantısından müşteri görünümü</span><button class="demo-primary" type="submit">Randevuyu onayla →</button></div>
+            </form>
+          </div>
+
+          <div class="demo-panel" data-panel="2" hidden>
+            <div class="demo-panel-heading"><div><span class="demo-overline">03 / SEVKİYAT PLANLAMA</span><h3>Doğru araç. Hazır ekip.</h3><p>Randevuyu günlük sevkiyat planına ekleyin.</p></div><span class="demo-icon" aria-hidden="true">↗</span></div>
+            <div class="demo-calendar-entry"><span class="demo-calendar-icon" aria-hidden="true">▦</span><div><strong data-calendar-date></strong><p>CVN-2026-1042 · Deniz Yılmaz · 3 ürün</p></div><span class="demo-tag">Montaj dahil</span></div>
+            <form data-fleet-form><div class="demo-form-grid"><label>Araç<select name="vehicle"><option value="06 CVN 01">06 CVN 01 · Kapalı kasa</option><option value="06 CVN 02">06 CVN 02 · Panelvan</option></select></label><label>Sürücü & montaj ekibi<select name="driver"><option>Ali Demir & Ekip A</option><option>Emre Kaya & Ekip B</option></select></label></div><div class="demo-route-preview"><span>01 <strong>Kazan deposu</strong></span><i></i><span>02 <strong>Çankaya / Deniz Yılmaz</strong></span></div><div class="demo-callout">Örnek rota: Kazan → Çevre yolu → Çankaya · 42 km · Tek teslimat</div><div class="demo-panel-footer"><span>Araç ve ekip bu örnek siparişe atanır.</span><button class="demo-primary" type="submit">Aracı ata ve sevkiyatı başlat →</button></div></form>
+          </div>
+
+          <div class="demo-panel" data-panel="3" hidden>
+            <div class="demo-panel-heading"><div><span class="demo-overline">04 / MÜŞTERİ TAKİP EKRANI</span><h3>Siparişiniz yola çıktı.</h3><p>Örnek rota üzerinde aracı ilerleterek takip deneyimini gösterin.</p></div><span class="demo-tag">GPS simülasyonu</span></div>
+            <div class="demo-map"><svg viewBox="0 0 640 270" role="img" aria-label="Kazan deposundan Çankaya'ya şematik teslimat rotası"><defs><pattern id="map-grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M 48 0 L 0 0 0 48" fill="none" stroke="#dbe5df" stroke-width="1" /></pattern></defs><rect width="640" height="270" fill="#edf2ec"/><rect width="640" height="270" fill="url(#map-grid)"/><path d="M-30 220 Q140 90 280 160 T680 80" fill="none" stroke="#d1e2e9" stroke-width="28"/><path d="M85 70 L190 70 L270 155 L400 155 L530 215" fill="none" stroke="white" stroke-width="24" stroke-linejoin="round"/><path d="M85 70 L190 70 L270 155 L400 155 L530 215" fill="none" stroke="#19a897" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 7"/><circle cx="85" cy="70" r="9" fill="#0b2940"/><circle cx="530" cy="215" r="9" fill="#f46142"/><text x="65" y="43">KAZAN DEPOSU</text><text x="460" y="249">ÇANKAYA</text><text x="310" y="65" class="demo-map-city">ANKARA</text><g data-truck transform="translate(85 70)"><circle r="21" fill="#0b2940" stroke="white" stroke-width="4"/><path d="M-10 -6 H3 V6 H-10 Z M3 -2 H8 L12 3 V6 H3 M-6 9 H-5 M7 9 H8" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/></g></svg><span>Şematik harita · Gerçek konum içermez</span></div>
+            <div class="demo-tracking"><div><span>Tahmini varış</span><strong data-eta>45 dakika</strong></div><div><span>Araç & ekip</span><strong data-tracking-team></strong></div><div><span>Yolculuk</span><strong data-distance>0 / 42 km</strong></div></div>
+            <div class="demo-panel-footer"><span data-tracking-note>Müşteriye örnek takip bağlantısı oluşturuldu.</span><button type="button" class="demo-primary" data-move>Aracı ilerlet →</button></div>
+          </div>
+
+          <div class="demo-panel" data-panel="4" hidden>
+            <div class="demo-panel-heading"><div><span class="demo-overline">05 / MOBİL EKİP EKRANI</span><h3>Son dokunuş, mutlu teslimat.</h3><p>Montaj ve teslimat kanıtlarını örnek kayıtlarla tamamlayın.</p></div><span class="demo-icon" aria-hidden="true">✓</span></div>
+            <div class="demo-proof-grid"><div class="demo-proof"><span class="demo-overline">TESLİMAT FOTOĞRAFLARI</span><div class="demo-photo-placeholder" data-photo-preview><span aria-hidden="true">▧</span><p>Ürün ve montaj kontrolü</p></div><button type="button" class="demo-secondary" data-photo>Örnek fotoğrafları ekle ＋</button></div><div class="demo-proof"><span class="demo-overline">MÜŞTERİ ONAYI</span><div class="demo-signature" data-signature-preview><span>Deniz Yılmaz</span><small>Örnek imza alanı</small></div><button type="button" class="demo-secondary" data-sign>Örnek imzayı ekle ＋</button></div></div>
+            <label class="demo-checkbox"><input type="checkbox" data-install /> Üç ürünün teslimatı ve montajı eksiksiz tamamlandı.</label>
+            <div class="demo-panel-footer"><span>Fotoğraf, imza ve montaj onayı gereklidir.</span><button type="button" class="demo-primary" data-complete disabled>Teslimatı tamamla →</button></div>
+          </div>
+
+          <div class="demo-panel" data-panel="5" hidden>
+            <div class="demo-panel-heading"><div><span class="demo-overline">06 / BAYİ BİLGİLENDİRMESİ</span><h3>Bir teslimat, eksiksiz bir hikâye.</h3><p>Teslimat tamamlandı. Bayiye iletilecek örnek rapor hazır.</p></div><span class="demo-success-icon" aria-hidden="true">✓</span></div>
+            <article class="demo-report"><div class="demo-report-top"><strong>CERVAN <small>TESLİMAT RAPORU</small></strong><span class="demo-tag">Tamamlandı</span></div><dl><div><dt>Sipariş</dt><dd>CVN-2026-1042</dd></div><div><dt>Bayi / Müşteri</dt><dd>Örnek Mobilya / Deniz Yılmaz</dd></div><div><dt>Randevu</dt><dd data-report-date></dd></div><div><dt>Araç / Ekip</dt><dd data-report-team></dd></div><div><dt>Teslim edilen</dt><dd>Luna üçlü koltuk, Luna berjer, Meşe orta sehpa</dd></div><div><dt>Teslim kanıtları</dt><dd>3 örnek fotoğraf · Örnek müşteri imzası · Montaj onayı</dd></div></dl><div class="demo-report-bottom">✓ Ürünler eksiksiz teslim edildi ve montajı tamamlandı.</div></article>
+            <div class="demo-callout">Bayi e-postası önizlemesi: Teslimat raporu ve örnek kanıtlar hazır. Gerçek e-posta gönderilmez.</div>
+            <div class="demo-panel-footer"><span>Depodan müşteriye tüm adımlar tamamlandı.</span><button type="button" class="demo-primary" data-restart>Yeni sunum başlat ↺</button></div>
+          </div>
+          <noscript><p class="demo-callout">İnteraktif demoyu kullanmak için tarayıcınızda JavaScript'i etkinleştirin.</p></noscript>
+        </div>
+      </section>
+      <section class="demo-events" aria-label="Bildirim önizlemeleri"><div><span class="demo-overline">OTOMATİK BİLGİLENDİRME</span><h2>Her adımda, herkes haberdar.</h2><p>E-posta ve SMS akışının örnek önizlemesi.</p></div><ol data-events aria-live="polite" aria-relevant="additions"><li><span class="demo-event-type">SİSTEM</span><div><strong>Operasyon sizi bekliyor.</strong><p>İlk ürünü kabul ederek örnek siparişi başlatın.</p></div><span class="demo-event-state">Önizleme</span></li></ol></section>
+    </div>
+  </div>
+</BaseLayout>
+<script>
+  import '../scripts/operations-demo';
+</script>
