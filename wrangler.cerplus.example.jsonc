@@ -1,5 +1,6 @@
-// Reference only; no account or resource is created by this file.
-// Configure the existing Pages project, with Hyperdrive caching DISABLED.
+// Reference only; wrangler.toml is the active Pages configuration.
+// Copy a REAL Hyperdrive binding to wrangler.toml after provisioning the database.
+// Do not leave this placeholder in an active config; disable Hyperdrive caching.
 {
   "name": "cervancom",
   "pages_build_output_dir": "./dist",

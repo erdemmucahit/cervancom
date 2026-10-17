@@ -1,0 +1,15 @@
+# Used by Cloudflare Pages' automatic Functions build and local Wrangler checks.
+# Node 24 for the build is selected separately by .node-version.
+name = "cervancom"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-10-17"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+CERPLUS_ORIGIN = "https://cervanlojistik.com"
+
+# Add the real binding here after provisioning PostgreSQL and Hyperdrive.
+# Hyperdrive query caching must be disabled. Do not commit database credentials.
+# [[hyperdrive]]
+# binding = "HYPERDRIVE"
+# id = "REAL_HYPERDRIVE_ID"

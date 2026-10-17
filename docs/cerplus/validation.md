@@ -1,5 +1,9 @@
 # Aşama 1 doğrulama kaydı
 
+## Pages Functions yapılandırma düzeltmesi — 18 Ekim 2026
+
+Uyumluluk ayarı verilmeden yerel Functions paketleme denendiğinde `pg` bağımlılıklarındaki `events`, `crypto`, `net`, `tls` gibi Node modülleri çözülemedi (24 hata). Aktif `wrangler.toml` eklendi; `nodejs_compat`, compatibility date, çıktı dizini ve uygulama origin'i burada tanımlandı. `check:cloudflare` artık Pages CI'nin proje/build metadata seçenekleriyle bu dosyayı okur; ayrıca CLI bayrağıyla hatayı gizlemez. Bu kontrol, TypeScript kontrolü ve site build'i geçti. Yerel workerd testi gerçek Pages paketini yükledi ve veritabanı binding'i yokken beklenen kontrollü 503 yanıtını doğruladı. Gerçek Cloudflare dağıtımı bu oturumda yapılmadı; önceki uzak build logu ayrıntılı hata içermediğinden uzak hatayla bire bir eşitlik iddiası yoktur.
+
 ## Giriş 404 düzeltmesi
 
 Astro `trailingSlash: 'always'` kuralı, sonu `/` ile bitmeyen API isteğini geliştirme proxy'sinden önce reddediyordu. API adresleri ve XLSX şablon bağlantıları düzeltildi; sorgu parametreleri korunur. `test:dev` iki ayrı gerçek sunucuyla açılış oturum kontrolü, yönlendirmesiz POST giriş, stok filtresi, XLSX şablonu, mal kabul/tekrar koruması ve çıkışı doğrular. TypeScript kontrolü de geçti. Önceki statik HTTP testi bu geliştirme sunucusu katmanını kapsamıyordu.

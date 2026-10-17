@@ -19,7 +19,7 @@
         "test:cerplus": "node --test cerplus/tests/*.test.ts",
         "test:postgres": "node --env-file-if-exists=.env --test cerplus/tests/postgres.integration.ts",
         "test:postgres:local": "node cerplus/tests/run-postgres.ts",
-        "check:cloudflare": "wrangler pages functions build functions --outdir .cerplus/cloudflare-build --compatibility-date 2026-10-17 --compatibility-flags nodejs_compat --minify",
+        "check:cloudflare": "wrangler pages functions build functions --outdir .cerplus/cloudflare-build --project-directory . --build-output-directory dist --build-metadata-path .cerplus/cloudflare-build/metadata.json --minify",
         "test:cloudflare": "node cerplus/tests/run-cloudflare.ts",
         "test:http": "node cerplus/tests/run-http.ts",
         "test:dev": "node cerplus/tests/run-http.ts --dev",

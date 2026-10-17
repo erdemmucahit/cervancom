@@ -4,6 +4,8 @@ Astro ve TypeScript ile hazırlanmış, mobil öncelikli kurumsal tanıtım site
 
 Node sürümü proje kökündeki `.node-version` dosyasında `24.19.0` olarak sabitlenir. Cloudflare Pages'te ayrıca `NODE_VERSION` ortam değişkeni tanımlıysa Production ve Preview için aynı sürümü kullanın; `package.json` içindeki `engines` alanı tek başına Cloudflare'ın Node sürümünü seçmez. Build komutu `npm run build`, çıktı dizini `dist` olmalıdır.
 
+Cloudflare Pages Functions için aktif yapılandırma `wrangler.toml` dosyasıdır. `nodejs_compat` ve compatibility date burada tanımlıdır; yalnızca `.example.jsonc` dosyası otomatik build tarafından kullanılmaz. `npm run check:cloudflare` aynı aktif dosyayla paketleme yapar. Gerçek Hyperdrive binding'i veritabanı kurulumundan sonra bu dosyaya eklenmelidir.
+
 ## Yerel çalışma
 
 ```bash
