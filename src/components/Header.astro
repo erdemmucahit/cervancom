@@ -6,7 +6,7 @@ const links = [
   { href: '/', label: 'Ana Sayfa' },
   { href: '/hakkimizda/', label: 'Hakkımızda' },
   { href: '/hizmetler/', label: 'Hizmetler' },
-  { href: '/demo/', label: 'Operasyon Demosu' },
+  { href: '/demo/', label: 'Cerplus' },
   { href: '/iletisim/', label: 'İletişim' },
 ];
 ---
@@ -41,9 +41,10 @@ const links = [
       ))}
     </nav>
 
-    <a class="button button-small header-cta" href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer">
-      WhatsApp'tan Teklif Al <span aria-hidden="true">↗</span>
+    <a class="button button-small header-cta" href={site.cerplusUrl}>
+      Cerplus’a Giriş <span aria-hidden="true">↗</span>
     </a>
+    <a class="header-whatsapp" href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp'tan Teklif Al" title="WhatsApp'tan Teklif Al">WhatsApp ↗</a>
 
     <details class="mobile-menu">
       <summary aria-label="Menüyü aç veya kapat"><span>Menü</span><i aria-hidden="true"></i></summary>
@@ -53,8 +54,16 @@ const links = [
             {link.label}
           </a>
         ))}
-        <a class="button" href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp'tan Teklif Al <span aria-hidden="true">↗</span></a>
+        <a class="button" href={site.cerplusUrl}>Cerplus’a Giriş <span aria-hidden="true">↗</span></a>
+        <a href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp'tan Teklif Al ↗</a>
       </nav>
     </details>
   </div>
 </header>
+
+<style>
+  .header-whatsapp { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; color: #258976; font-size: 12px; font-weight: 800; white-space: nowrap; }
+  .has-overlay-header .site-header:not(.is-scrolled) .header-whatsapp { color: #7ae1d7; }
+  @media (min-width: 1051px) { .header-inner { gap: 22px; } }
+  @media (max-width: 1050px) { .header-whatsapp { display: none; } }
+</style>

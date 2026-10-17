@@ -1,0 +1,10 @@
+// Reference only; no account or resource is created by this file.
+// Configure the existing Pages project, with Hyperdrive caching DISABLED.
+{
+  "name": "cervancom",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-10-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "REPLACE_WITH_REAL_HYPERDRIVE_ID" }],
+  "vars": { "CERPLUS_ORIGIN": "https://cervanlojistik.com" }
+}

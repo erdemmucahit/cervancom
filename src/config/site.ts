@@ -7,6 +7,7 @@ export const site = {
     'Cervan Lojistik; Ankara merkezli olarak Türkiye genelinde mobilya depolama, montaj, demontaj, paketleme ve nakliye hizmetleri sunar.',
   location: 'Ankara',
   serviceArea: 'Türkiye geneli',
+  cerplusUrl: import.meta.env.PUBLIC_CERPLUS_URL || '/cerplus/',
   contact: {
     phone: '+90 543 610 61 08',
     phoneHref: 'tel:+905436106108',

@@ -33,3 +33,37 @@ Kurulum adımları: [Teklif formu kurulumu](docs/teklif-formu.md).
 - `/hakkimizda` — Hakkımızda
 - `/hizmetler` — Hizmetler
 - `/iletisim` — İletişim ve teklif formu
+- `/cerplus/` — Cerplus depo uygulaması
+- `/demo/` — Cerplus ürün sunumu; önceki interaktif operasyon demosu kaldırıldı
+
+## Cerplus · ilk çalışan aşama
+
+Node.js **24+** gerekir. Mevcut site ve teklif formu korunur; **Cerplus’a Giriş** uygulamayı açar. Üretime yayın yapılmamıştır.
+
+İlk kurulum (geliştirme örnekleri, gerçek operasyon verisi değildir):
+
+```bash
+npm ci
+npm run cerplus:migrate
+npm run cerplus:seed
+```
+
+İki terminalde, birinde `npm run cerplus:dev`, diğerinde `npm run dev` çalıştırın. Adres: **http://localhost:4321/cerplus/**. Geliştirme hesabı: `admin@cerplus.test` / `CerplusDemo!2026`. Bu hesap yalnızca seed komutuyla oluşturulur; üretimde yoktur. PostgreSQL kurulumu gerekmez; PGlite verileri `.cerplus/development` altında kalıcıdır. Aynı dizini tek API süreci açmalıdır.
+
+Çalışan kapsam: kullanıcı/rol, bayi/bölüm/raf, marka ve çok kolili katalog, standart XLSX aktarımı, barkod/manuel mal kabul, sahipli stok, raf transferi, hasar çıkışı ve işlem geçmişi. Sipariş, randevu, rezervasyon ekranı ve saha sonraki aşamalardır.
+
+```bash
+npm test
+npm run test:cerplus
+npm run test:postgres:local
+npm run check:cerplus
+npm run check:cloudflare
+npm run test:cloudflare
+npm run build
+npm run test:http
+npm run test:dev
+```
+
+`test:postgres:local`, yalnızca loopback'te geçici gerçek PostgreSQL başlatır, ayrı test şemaları kullanır ve bitince test verisini temizler. İşletim sistemi süreç başlatma izni gerekebilir. Harici test veritabanı için `CERPLUS_TEST_DATABASE_URL` ve `npm run test:postgres` kullanılır.
+
+Yalnızca Cloudflare hesabı olan kurulumun üretim hedefi **Pages Functions + Hyperdrive + ayrıca yönetilen PostgreSQL**'dir. Bu görevde kaynak açılmaz veya müşteri mesajı gönderilmez. Ayrıntılar: [kurulum](docs/cerplus/README.md), [gereksinimler](docs/cerplus/requirements.md), [mimari](docs/cerplus/architecture.md), [yol haritası](docs/cerplus/roadmap.md), [doğrulama](docs/cerplus/validation.md).

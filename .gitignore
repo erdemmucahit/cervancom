@@ -28,3 +28,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Cerplus local database and test/build artifacts
+.cerplus/
+cerplus/.test-output/

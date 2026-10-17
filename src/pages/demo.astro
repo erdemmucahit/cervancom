@@ -1,91 +1,72 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import '../styles/demo.css';
+import { site } from '../config/site';
+import '../styles/cerplus-presentation.css';
 
-const steps = [
-  ['01', 'Ürün kabulü', 'Depo & kalite kontrol'],
-  ['02', 'Randevu', 'Müşteri portalı'],
-  ['03', 'Sevkiyat planı', 'Araç & ekip atama'],
-  ['04', 'Yolculuk', 'Teslimat takibi'],
-  ['05', 'Teslimat', 'Montaj & teslim kanıtı'],
-  ['06', 'Bayi raporu', 'Operasyonun kapanışı'],
+const capabilities = [
+  { number: '01', name: 'Ürün & koli kataloğu', title: 'Mobilyanın bütününü, her kolisiyle tanıyın.', text: 'Marka, ürün kodu, model ve varyant aynı katalogda. Çok kolili ürünlerin her koli tipini; barkodu, gereken adedi, hacmi ve ağırlığıyla tanımlayın.', detail: 'Ürün kodu → Koli tipleri → Marka bağlamlı barkod', tag: 'Mobilyaya özel ürün yapısı' },
+  { number: '02', name: 'Mal kabul', title: 'Depoya giren koli, kayda da girsin.', text: 'Barkod okutarak, elle girerek veya Excel yükleyerek kabul yapın. Koli miktarını, yerleştirildiği rafı ve stok sahibini onaylamadan önce görün.', detail: 'Okut → Miktarı kontrol et → Kabulü onayla', tag: 'Barkod · Manuel · Excel' },
+  { number: '03', name: 'Stok & raf yönetimi', title: '“Depoda var” bilgisinin bir adım ötesi.', text: 'Hangi koli hangi rafta, hangi bayiye ait? Fiziksel ve kullanılabilir miktarları ayrı izleyin. Bayi stoğu ile ortak depo stoğunu aynı görünümde ayırt edin.', detail: 'Koli tipi + Raf + Stok sahibi', tag: 'Sahipliği belli, yeri belli stok' },
+  { number: '04', name: 'Hareket & işlem geçmişi', title: 'Sonucu görün. Nasıl oluştuğunu da bilin.', text: 'Mal kabul, raf transferi ve hasar çıkışlarını kayıt altında tutun. İşlemi yapan kişi, zaman ve gerekçe üzerinden stok hareketlerinin izini sürün.', detail: 'Ne değişti? → Kim yaptı? → Ne zaman?', tag: 'İzlenebilir depo operasyonu' },
 ];
+const roles = [
+  { number: '01', name: 'Yönetici', title: 'Düzeni kurar.', text: 'Kullanıcıları, bayileri, depo bölümlerini ve rafları yönetir. Kritik işlem geçmişini takip eder.' },
+  { number: '02', name: 'Depo & ofis', title: 'İşi yürütür.', text: 'Kataloğu ve mal kabulü yönetir. Stokları sorgular, raf transferi ve hasar işlemlerini kaydeder.' },
+  { number: '03', name: 'Bayi', title: 'Kendi stoğunu görür.', text: 'Yalnızca kendi bayisine ait stokları ve hareketleri takip eder. Stok miktarını doğrudan değiştiremez.' },
+];
+const workflow = [
+  ['Kataloğu tanımlayın', 'Ürünleri ve gerekli koli tiplerini kaydedin.'],
+  ['Depoyu düzenleyin', 'Bölümleri, rafları ve bayileri tanımlayın.'],
+  ['Kolileri kabul edin', 'Raf, sahip ve miktarı birlikte onaylayın.'],
+  ['Stoğu takip edin', 'Mevcut miktarları ve hareket geçmişini görün.'],
+];
+const nextModules = ['Sipariş & rezervasyon', 'Randevu & sevkiyat', 'Saha & teslimat', 'Gelişmiş raporlar & entegrasyonlar'];
 ---
 
-<BaseLayout title="Operasyon Demosu | Cervan Lojistik" description="Depodan müşteriye: Cervan'ın örnek verilerle çalışan interaktif lojistik operasyon demosunu keşfedin.">
-  <div class="demo-page" data-demo>
-    <div class="container">
-      <div class="demo-heading">
-        <div><p class="eyebrow"><span></span> CERVAN / DİJİTAL OPERASYON</p><h1>Depodan eve.<br /><em>Her adım kontrol altında.</em></h1><p>Bir mobilya siparişinin yolculuğunu, baştan sona deneyimleyin.</p></div>
-        <div class="demo-heading-actions"><span class="demo-pill"><i></i> İnteraktif demo</span><button class="demo-reset" type="button" data-reset>↺ Demoyu sıfırla</button></div>
-      </div>
-      <div class="demo-notice">SUNUM MODU <span>Tüm kişi ve siparişler örnektir. Bildirimler, konum ve teslimat belgeleri simülasyondur. Veriler kaydedilmez.</span></div>
-
-      <section class="demo-workspace" aria-label="Örnek operasyon paneli">
-        <aside class="demo-sidebar">
-          <div class="demo-sidebar-title">SİPARİŞİN YOLCULUĞU</div>
-          <nav aria-label="Demo adımları">
-            {steps.map(([number, label, subtitle], index) => <button type="button" class:list={['demo-step', {'is-current': index === 0}]} data-step={index} aria-current={index === 0 ? 'step' : undefined}><span class="demo-step-number">{number}</span><span><strong>{label}</strong><small>{subtitle}</small></span><span class="demo-step-check" aria-hidden="true"></span></button>)}
-          </nav>
-          <div class="demo-scenario"><span>ÖRNEK SENARYO</span><strong>Bir evin yeni hikâyesi.</strong><p>1 müşteri, 3 parça mobilya.<br />Ankara içi teslimat ve montaj.</p><div>Fabrika → Depo → Müşteri</div></div>
-        </aside>
-
-        <div class="demo-main">
-          <div class="demo-order-header"><div><span class="demo-overline">SİPARİŞ / CVN-2026-1042</span><h2>Deniz Yılmaz</h2><p>Örnek Mobilya · Çankaya, Ankara</p></div><span class="demo-status" data-order-status>Ürünler bekleniyor</span></div>
-          <div class="demo-metrics"><div><span>Ürün kabulü</span><strong data-count>0 <small>/ 3 ürün</small></strong></div><div><span>Teslimat randevusu</span><strong class="demo-metric-text" data-date-summary>Henüz seçilmedi</strong></div><div><span>Atanan araç</span><strong class="demo-metric-text" data-vehicle-summary>Planlanmadı</strong></div></div>
-
-          <div class="demo-panel" data-panel="0">
-            <div class="demo-panel-heading"><div><span class="demo-overline">01 / DEPO OPERASYONU</span><h3>Her parça, doğru siparişe.</h3><p>Örnek barkodları kabul ederek ürünleri depoya alın.</p></div><span class="demo-icon" aria-hidden="true">▥</span></div>
-            <div class="demo-products">
-              {[['CVN-1042-01', 'Luna üçlü koltuk', 'Kum beji · 1 adet', '01'], ['CVN-1042-02', 'Luna berjer', 'Zeytin yeşili · 1 adet', '02'], ['CVN-1042-03', 'Meşe orta sehpa', 'Doğal meşe · 1 adet', '03']].map(([barcode, name, detail, number], index) => <div class="demo-product"><div class="demo-product-icon" aria-hidden="true">{number}</div><div><strong>{name}</strong><span>{detail}</span><code>{barcode}</code></div><button type="button" class="demo-secondary" data-receive={index}>Ürünü kabul et <span aria-hidden="true">＋</span></button></div>)}
-            </div>
-            <div class="demo-callout" data-inbound-note>Her kabulde bayi bildirimi oluşturulur. Üç ürünün tamamı kabul edildiğinde randevu adımı açılır.</div>
-            <div class="demo-panel-footer"><span>Kontrol: ambalaj ve ürünler sağlam</span><button type="button" class="demo-primary" data-next="1" disabled>Randevuya geç →</button></div>
-          </div>
-
-          <div class="demo-panel" data-panel="1" hidden>
-            <div class="demo-panel-heading"><div><span class="demo-overline">02 / MÜŞTERİ PORTALI ÖNİZLEMESİ</span><h3>Size ne zaman gelelim?</h3><p>Siparişiniz hazır. Teslimat ve montaj için uygun zamanı seçin.</p></div><span class="demo-icon" aria-hidden="true">▦</span></div>
-            <form data-schedule-form>
-              <fieldset class="demo-dates"><legend>Teslimat günü · Ekim 2026</legend>{[['2026-10-19', '19', 'Pazartesi'], ['2026-10-20', '20', 'Salı'], ['2026-10-21', '21', 'Çarşamba']].map(([value, day, name], index) => <label><input type="radio" name="date" value={value} checked={index === 0} /><span><strong>{day}</strong><small>{name}</small></span></label>)}</fieldset>
-              <fieldset class="demo-slots"><legend>Saat aralığı</legend><label><input type="radio" name="slot" value="09.00 – 13.00" checked /><span>Sabah <small>09.00 – 13.00</small></span></label><label><input type="radio" name="slot" value="13.00 – 18.00" /><span>Öğleden sonra <small>13.00 – 18.00</small></span></label></fieldset>
-              <div class="demo-callout">Adres: Örnek Mahallesi, Demo Sokak No: 12, Çankaya / Ankara</div>
-              <div class="demo-panel-footer"><span>Örnek randevu bağlantısından müşteri görünümü</span><button class="demo-primary" type="submit">Randevuyu onayla →</button></div>
-            </form>
-          </div>
-
-          <div class="demo-panel" data-panel="2" hidden>
-            <div class="demo-panel-heading"><div><span class="demo-overline">03 / SEVKİYAT PLANLAMA</span><h3>Doğru araç. Hazır ekip.</h3><p>Randevuyu günlük sevkiyat planına ekleyin.</p></div><span class="demo-icon" aria-hidden="true">↗</span></div>
-            <div class="demo-calendar-entry"><span class="demo-calendar-icon" aria-hidden="true">▦</span><div><strong data-calendar-date></strong><p>CVN-2026-1042 · Deniz Yılmaz · 3 ürün</p></div><span class="demo-tag">Montaj dahil</span></div>
-            <form data-fleet-form><div class="demo-form-grid"><label>Araç<select name="vehicle"><option value="06 CVN 01">06 CVN 01 · Kapalı kasa</option><option value="06 CVN 02">06 CVN 02 · Panelvan</option></select></label><label>Sürücü & montaj ekibi<select name="driver"><option>Ali Demir & Ekip A</option><option>Emre Kaya & Ekip B</option></select></label></div><div class="demo-route-preview"><span>01 <strong>Kazan deposu</strong></span><i></i><span>02 <strong>Çankaya / Deniz Yılmaz</strong></span></div><div class="demo-callout">Örnek rota: Kazan → Çevre yolu → Çankaya · 42 km · Tek teslimat</div><div class="demo-panel-footer"><span>Araç ve ekip bu örnek siparişe atanır.</span><button class="demo-primary" type="submit">Aracı ata ve sevkiyatı başlat →</button></div></form>
-          </div>
-
-          <div class="demo-panel" data-panel="3" hidden>
-            <div class="demo-panel-heading"><div><span class="demo-overline">04 / MÜŞTERİ TAKİP EKRANI</span><h3>Siparişiniz yola çıktı.</h3><p>Örnek rota üzerinde aracı ilerleterek takip deneyimini gösterin.</p></div><span class="demo-tag">GPS simülasyonu</span></div>
-            <div class="demo-map"><svg viewBox="0 0 640 270" role="img" aria-label="Kazan deposundan Çankaya'ya şematik teslimat rotası"><defs><pattern id="map-grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M 48 0 L 0 0 0 48" fill="none" stroke="#dbe5df" stroke-width="1" /></pattern></defs><rect width="640" height="270" fill="#edf2ec"/><rect width="640" height="270" fill="url(#map-grid)"/><path d="M-30 220 Q140 90 280 160 T680 80" fill="none" stroke="#d1e2e9" stroke-width="28"/><path d="M85 70 L190 70 L270 155 L400 155 L530 215" fill="none" stroke="white" stroke-width="24" stroke-linejoin="round"/><path d="M85 70 L190 70 L270 155 L400 155 L530 215" fill="none" stroke="#19a897" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 7"/><circle cx="85" cy="70" r="9" fill="#0b2940"/><circle cx="530" cy="215" r="9" fill="#f46142"/><text x="65" y="43">KAZAN DEPOSU</text><text x="460" y="249">ÇANKAYA</text><text x="310" y="65" class="demo-map-city">ANKARA</text><g data-truck transform="translate(85 70)"><circle r="21" fill="#0b2940" stroke="white" stroke-width="4"/><path d="M-10 -6 H3 V6 H-10 Z M3 -2 H8 L12 3 V6 H3 M-6 9 H-5 M7 9 H8" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/></g></svg><span>Şematik harita · Gerçek konum içermez</span></div>
-            <div class="demo-tracking"><div><span>Tahmini varış</span><strong data-eta>45 dakika</strong></div><div><span>Araç & ekip</span><strong data-tracking-team></strong></div><div><span>Yolculuk</span><strong data-distance>0 / 42 km</strong></div></div>
-            <div class="demo-panel-footer"><span data-tracking-note>Müşteriye örnek takip bağlantısı oluşturuldu.</span><button type="button" class="demo-primary" data-move>Aracı ilerlet →</button></div>
-          </div>
-
-          <div class="demo-panel" data-panel="4" hidden>
-            <div class="demo-panel-heading"><div><span class="demo-overline">05 / MOBİL EKİP EKRANI</span><h3>Son dokunuş, mutlu teslimat.</h3><p>Montaj ve teslimat kanıtlarını örnek kayıtlarla tamamlayın.</p></div><span class="demo-icon" aria-hidden="true">✓</span></div>
-            <div class="demo-proof-grid"><div class="demo-proof"><span class="demo-overline">TESLİMAT FOTOĞRAFLARI</span><div class="demo-photo-placeholder" data-photo-preview><span aria-hidden="true">▧</span><p>Ürün ve montaj kontrolü</p></div><button type="button" class="demo-secondary" data-photo>Örnek fotoğrafları ekle ＋</button></div><div class="demo-proof"><span class="demo-overline">MÜŞTERİ ONAYI</span><div class="demo-signature" data-signature-preview><span>Deniz Yılmaz</span><small>Örnek imza alanı</small></div><button type="button" class="demo-secondary" data-sign>Örnek imzayı ekle ＋</button></div></div>
-            <label class="demo-checkbox"><input type="checkbox" data-install /> Üç ürünün teslimatı ve montajı eksiksiz tamamlandı.</label>
-            <div class="demo-panel-footer"><span>Fotoğraf, imza ve montaj onayı gereklidir.</span><button type="button" class="demo-primary" data-complete disabled>Teslimatı tamamla →</button></div>
-          </div>
-
-          <div class="demo-panel" data-panel="5" hidden>
-            <div class="demo-panel-heading"><div><span class="demo-overline">06 / BAYİ BİLGİLENDİRMESİ</span><h3>Bir teslimat, eksiksiz bir hikâye.</h3><p>Teslimat tamamlandı. Bayiye iletilecek örnek rapor hazır.</p></div><span class="demo-success-icon" aria-hidden="true">✓</span></div>
-            <article class="demo-report"><div class="demo-report-top"><strong>CERVAN <small>TESLİMAT RAPORU</small></strong><span class="demo-tag">Tamamlandı</span></div><dl><div><dt>Sipariş</dt><dd>CVN-2026-1042</dd></div><div><dt>Bayi / Müşteri</dt><dd>Örnek Mobilya / Deniz Yılmaz</dd></div><div><dt>Randevu</dt><dd data-report-date></dd></div><div><dt>Araç / Ekip</dt><dd data-report-team></dd></div><div><dt>Teslim edilen</dt><dd>Luna üçlü koltuk, Luna berjer, Meşe orta sehpa</dd></div><div><dt>Teslim kanıtları</dt><dd>3 örnek fotoğraf · Örnek müşteri imzası · Montaj onayı</dd></div></dl><div class="demo-report-bottom">✓ Ürünler eksiksiz teslim edildi ve montajı tamamlandı.</div></article>
-            <div class="demo-callout">Bayi e-postası önizlemesi: Teslimat raporu ve örnek kanıtlar hazır. Gerçek e-posta gönderilmez.</div>
-            <div class="demo-panel-footer"><span>Depodan müşteriye tüm adımlar tamamlandı.</span><button type="button" class="demo-primary" data-restart>Yeni sunum başlat ↺</button></div>
-          </div>
-          <noscript><p class="demo-callout">İnteraktif demoyu kullanmak için tarayıcınızda JavaScript'i etkinleştirin.</p></noscript>
+<BaseLayout title="Cerplus | Mobilya Deponuzun Kontrolü Elinizde — Cervan" description="Cerplus ile mobilya ürün ve koli kataloğunu, barkodla mal kabulü, bayi stoklarını ve raf hareketlerini tek bir Türkçe web uygulamasında yönetin.">
+  <div class="cp-presentation">
+    <section class="cp-hero" aria-labelledby="cp-title">
+      <div class="container cp-hero-grid">
+        <div class="cp-hero-copy">
+          <p class="cp-kicker"><span></span> CERVAN’DAN MOBİLYA DEPOLARINA</p>
+          <div class="cp-wordmark" aria-label="Cerplus"><span class="cp-brand-mark" aria-hidden="true">c<span>+</span></span>cerplus<span class="cp-brand-dot">.</span></div>
+          <h1 id="cp-title">Her koli yerinde.<br /><em>Her bilgi elinizde.</em></h1>
+          <p class="cp-hero-lead">Mobilya deponuzdaki ürünleri, rafları ve bayi stoklarını tek çalışma alanında buluşturun. Ekibiniz aynı bilgiye baksın; işiniz kişilerin hafızasına bağlı kalmasın.</p>
+          <div class="cp-actions"><a class="cp-button cp-button-lime" href="/iletisim/#teklif">İşletmeniz için görüşelim <span aria-hidden="true">↗</span></a><a class="cp-hero-login" href={site.cerplusUrl}>Cerplus’a giriş <span aria-hidden="true">→</span></a></div>
+          <div class="cp-hero-facts"><span>Mobilyaya özel</span><span>Türkçe web arayüzü</span><span>Ofis, tablet ve telefon</span></div>
         </div>
-      </section>
-      <section class="demo-events" aria-label="Bildirim önizlemeleri"><div><span class="demo-overline">OTOMATİK BİLGİLENDİRME</span><h2>Her adımda, herkes haberdar.</h2><p>E-posta ve SMS akışının örnek önizlemesi.</p></div><ol data-events aria-live="polite" aria-relevant="additions"><li><span class="demo-event-type">SİSTEM</span><div><strong>Operasyon sizi bekliyor.</strong><p>İlk ürünü kabul ederek örnek siparişi başlatın.</p></div><span class="demo-event-state">Önizleme</span></li></ol></section>
-    </div>
+        <figure class="cp-system-figure">
+          <div class="cp-figure-top"><span class="cp-live-label"><i></i> DEPO YÖNETİMİ</span><span>İLK SÜRÜM</span></div>
+          <div class="cp-box-stage" aria-hidden="true">
+            <div class="cp-orbit cp-orbit-one"></div><div class="cp-orbit cp-orbit-two"></div>
+            <div class="cp-carton"><div class="cp-carton-top"></div><div class="cp-carton-face"><span class="cp-carton-brand">cerplus.</span><div class="cp-carton-label"><span>KOLİ TİPİ</span><b>15–01</b><div class="cp-barcode"></div></div><span class="cp-carton-bottom">HER KOLİ BİR BİLGİ TAŞIR.</span></div><div class="cp-carton-side"></div></div>
+            <div class="cp-annotation cp-annotation-rack"><span>NEREDE?</span><b>A1 rafı</b></div>
+            <div class="cp-annotation cp-annotation-owner"><span>KİME AİT?</span><b>Bayi A stoğu</b></div>
+            <div class="cp-annotation cp-annotation-type"><span>HANGİ PARÇA?</span><b>15–01 koli tipi</b></div>
+          </div>
+          <figcaption><span>Koli tipi. Rafı. Sahibi.</span><small>Ürün yapısını anlatan görsel · Operasyon verisi içermez.</small></figcaption>
+        </figure>
+      </div>
+    </section>
+    <div class="cp-value-strip"><div class="container cp-value-grid"><div><span>01</span><p><strong>Yerini bulun.</strong> Raf bazında stok görünürlüğü.</p></div><div><span>02</span><p><strong>Sahibini bilin.</strong> Bayi ve ortak stok ayrımı.</p></div><div><span>03</span><p><strong>Geçmişini görün.</strong> Kayıtlı stok hareketleri.</p></div></div></div>
+
+    <section class="cp-section cp-problem" aria-labelledby="cp-problem-title">
+      <div class="container cp-problem-grid">
+        <div class="cp-editorial-copy"><p class="cp-kicker cp-kicker-dark"><span></span> MOBİLYANIN KOLİ MANTIĞINI BİLİR</p><h2 id="cp-problem-title">15 koli var.<br />Peki, <em>15’i de doğru mu?</em></h2><p>Bir gardrop, birbirinin yerine geçmeyen farklı koli tiplerinden oluşur. Aynı tipten fazladan bir koli, eksik olan başka bir tipin yerini tutmaz.</p><p>Cerplus’ta ürünler yalnızca bir isimden ibaret değildir. Gerekli koli tiplerini ve her tipten gereken adedi katalogda ayrı tanımlarsınız. Depo kaydınız mobilyanın gerçek yapısını yansıtır.</p><a class="cp-text-link" href="#cerplus-ozellikleri">Cerplus’u yakından tanıyın <span aria-hidden="true">↓</span></a></div>
+        <figure class="cp-package-figure"><div class="cp-package-header"><span>ÇOK KOLİLİ ÜRÜN YAPISI</span><b>Bir gardrop / 15 koli tipi</b></div><div class="cp-package-grid" aria-label="Örnek: 01 ile 14 arasındaki koli tipleri mevcut, 15 numaralı tip eksik">{Array.from({ length: 15 }, (_, i) => <div class:list={['cp-package', { 'cp-package-missing': i === 14 }]}><span aria-hidden="true">{i === 14 ? '+' : '▱'}</span><b>15–{String(i + 1).padStart(2, '0')}</b><small>{i === 14 ? 'Eksik tip' : i === 0 ? '2 adet' : '1 adet'}</small></div>)}</div><div class="cp-package-insight"><span aria-hidden="true">!</span><p><strong>Toplam 15 koli. Yalnızca 14 farklı tip.</strong>15–01’den bir fazla olması, eksik 15–15’i tamamlamaz.</p></div><figcaption>Koli yapısını açıklayan örnek; canlı stok veya rezervasyon ekranı değildir.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="cp-section cp-capabilities" id="cerplus-ozellikleri" aria-labelledby="cp-capabilities-title"><div class="container"><div class="cp-section-heading"><div><p class="cp-kicker cp-kicker-dark"><span></span> CERPLUS’UN BUGÜN SUNDUKLARI</p><h2 id="cp-capabilities-title">Deponun dört işi.<br /><em>Tek çalışma alanı.</em></h2></div><p>Dağınık listelerden ortak bir depo düzenine.<br />Günlük işin ihtiyaç duyduğu bilgi, bir arada.</p></div><div class="cp-capability-list">{capabilities.map(item => <article class="cp-capability"><div class="cp-capability-index"><span>{item.number}</span><h3>{item.name}</h3></div><div class="cp-capability-copy"><h4>{item.title}</h4><p>{item.text}</p><div class="cp-capability-detail">{item.detail}</div></div><span class="cp-capability-tag">{item.tag}</span></article>)}</div></div></section>
+
+    <section class="cp-section cp-role-section" aria-labelledby="cp-roles-title"><div class="container"><div class="cp-role-intro"><div><p class="cp-kicker"><span></span> HERKESE İHTİYACI KADAR ERİŞİM</p><h2 id="cp-roles-title">Aynı depo.<br /><em>Doğru kişiye, doğru bilgi.</em></h2></div><p>Operasyon ekibiniz depo işlerini yürütürken bayileriniz kendi stoklarını takip eder. Kullanıcı rolleri, işin sorumluluğuna göre ayrılır.</p></div><div class="cp-role-grid">{roles.map(role => <article><div class="cp-role-top"><span>{role.name}</span><span>{role.number}</span></div><h3>{role.title}</h3><p>{role.text}</p></article>)}</div><div class="cp-role-footer"><span aria-hidden="true">↳</span><p>Bayiye ait stok ile ortak depo stoğu ayrı tutulur. Bayi ekranında yalnızca ilgili bayinin kayıtları görünür.</p></div></div></section>
+
+    <section class="cp-section cp-workflow" aria-labelledby="cp-workflow-title"><div class="container"><div class="cp-section-heading"><div><p class="cp-kicker cp-kicker-dark"><span></span> GÜNLÜK İŞİNİZE UYUM SAĞLAR</p><h2 id="cp-workflow-title">Koliyi kaydedin.<br /><em>Bilgiyi takip edin.</em></h2></div><p>Barkod okuyucu, manuel giriş veya Excel.<br />Kabul yöntemi değişse de kayıt düzeni aynı.</p></div><ol class="cp-workflow-list">{workflow.map(([title, text], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{text}</p></li>)}</ol><div class="cp-excel-note"><span class="cp-file-icon" aria-hidden="true">XLSX</span><div><h3>Önce görün, sonra onaylayın.</h3><p>Excel aktarımında önizleme ve satır bazında hata kontrolü bulunur. Katalog yüklemek stok artırmaz; mal kabulü ayrı onaylanır. Aynı içeriğin tekrar aktarılması kayıtları çoğaltmaz.</p></div></div></div></section>
+
+    <section class="cp-roadmap" aria-labelledby="cp-roadmap-title"><div class="container cp-roadmap-grid"><div><p class="cp-kicker cp-kicker-dark"><span></span> BİR SONRAKİ ADIM</p><h2 id="cp-roadmap-title">Depoda başlar.<br /><em>Teslimata doğru büyür.</em></h2><p>İlk sürümün odağı; katalog, mal kabul, stok ve depo hareketleri. Siparişten teslimata uzanan modüller geliştirme yol haritasında.</p></div><div class="cp-roadmap-panel"><span class="cp-roadmap-label">PLANLANAN SONRAKİ MODÜLLER</span>{nextModules.map((name, index) => <div><span>0{index + 2}</span><strong>{name}</strong><span class="cp-future-label">Planlanan</span></div>)}<p>Bu modüller mevcut sürümde kullanıma açık değildir.</p></div></div></section>
+
+    <section class="cp-section cp-faq" aria-labelledby="cp-faq-title"><div class="container cp-faq-grid"><div><p class="cp-kicker cp-kicker-dark"><span></span> MERAK EDİLENLER</p><h2 id="cp-faq-title">İşe dair<br /><em>net cevaplar.</em></h2></div><div class="cp-faq-list"><details><summary>Katalog yüklemek ile mal kabul yapmak arasındaki fark nedir?<span aria-hidden="true">+</span></summary><p>Katalog, ürünün hangi koli tiplerinden oluştuğunu tanımlar. Stok miktarını artırmaz. Koliler depoya fiziksel olarak geldiğinde raf, sahip ve miktar bilgileriyle ayrı mal kabul yapılır.</p></details><details><summary>Barkod okuyucu olmadan kullanabilir miyiz?<span aria-hidden="true">+</span></summary><p>Evet. Barkodu elle yazabilir, manuel kabul yapabilir veya standart Excel şablonuyla toplu aktarım gerçekleştirebilirsiniz. Klavye gibi çalışan barkod okuyucular da kabul akışında kullanılabilir.</p></details><details><summary>Bayiler diğer bayilerin stoklarını görebilir mi?<span aria-hidden="true">+</span></summary><p>Hayır. Bayi hesabı yalnızca kendi bayisine ait stokları ve stok hareketlerini görür. Stok miktarlarını değiştirme yetkisi depo ve ofis operasyonundadır.</p></details></div></div></section>
+
+    <section class="cp-closing" aria-labelledby="cp-closing-title"><div class="container cp-closing-inner"><div><p class="cp-kicker cp-kicker-dark"><span></span> DEPO DÜZENİNİZ İÇİN YENİ BİR ADIM</p><h2 id="cp-closing-title">İşiniz büyürken,<br /><em>kontrol sizde kalsın.</em></h2><p>Deponuzu, ürün yapınızı ve bayi çalışma düzeninizi konuşalım.<br />Cerplus’un işletmenize nasıl uyarlanacağını birlikte değerlendirelim.</p></div><div class="cp-closing-actions"><a class="cp-button cp-button-dark" href="/iletisim/#teklif">Cerplus hakkında görüşelim <span aria-hidden="true">↗</span></a><a class="cp-text-link" href={site.cerplusUrl}>Hesabınız var mı? Cerplus’a giriş →</a></div></div></section>
   </div>
 </BaseLayout>
-<script>
-  import '../scripts/operations-demo';
-</script>

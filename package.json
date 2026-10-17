@@ -3,16 +3,46 @@
     "type": "module",
     "version": "0.0.1",
     "engines": {
-        "node": ">=22.12.0"
+        "node": ">=24.0.0"
     },
     "scripts": {
         "dev": "astro dev",
         "build": "astro build",
         "preview": "astro preview",
         "test": "node --experimental-strip-types --test tests/*.test.ts",
-        "astro": "astro"
+        "astro": "astro",
+        "cerplus:dev": "node --env-file-if-exists=.env cerplus/server.ts",
+        "cerplus:migrate": "node --env-file-if-exists=.env cerplus/cli.ts migrate",
+        "cerplus:seed": "node --env-file-if-exists=.env cerplus/cli.ts seed",
+        "cerplus:admin": "node --env-file-if-exists=.env cerplus/cli.ts admin",
+        "cerplus:serve": "node --env-file-if-exists=.env cerplus/server.ts --static",
+        "test:cerplus": "node --test cerplus/tests/*.test.ts",
+        "test:postgres": "node --env-file-if-exists=.env --test cerplus/tests/postgres.integration.ts",
+        "test:postgres:local": "node cerplus/tests/run-postgres.ts",
+        "check:cloudflare": "wrangler pages functions build functions --outdir .cerplus/cloudflare-build --compatibility-date 2026-10-17 --compatibility-flags nodejs_compat --minify",
+        "test:cloudflare": "node cerplus/tests/run-cloudflare.ts",
+        "test:http": "node cerplus/tests/run-http.ts",
+        "test:dev": "node cerplus/tests/run-http.ts --dev",
+        "check:cerplus": "tsc --project cerplus/tsconfig.json"
     },
     "dependencies": {
-        "astro": "^7.2.4"
+        "@electric-sql/pglite": "^0.5.10",
+        "astro": "^7.4.0",
+        "exceljs": "^4.4.0",
+        "pg": "^8.23.1"
+    },
+    "overrides": {
+        "exceljs": {
+            "uuid": "^11.1.1"
+        }
+    },
+    "devDependencies": {
+        "@types/node": "^26.6.5",
+        "@types/pg": "^8.23.1",
+        "embedded-postgres": "18.4.0-beta.17",
+        "esbuild": "^0.28.2",
+        "miniflare": "^5.20261012.1-beta",
+        "typescript": "^7.0.2",
+        "wrangler": "^4.151.1"
     }
 }
