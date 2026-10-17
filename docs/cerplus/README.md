@@ -60,6 +60,8 @@ Migration checksum'ları saklanır; uygulanmış SQL dosyasını değiştirmeyin
 
 ## Cloudflare üretim yolu (henüz yayınlanmadı)
 
+Build ortamı Node `24.19.0` kullanmalıdır; proje kökündeki `.node-version` bunu belirtir. Cloudflare Pages ayarlarında `NODE_VERSION` zaten tanımlıysa Production ve Preview değerlerini `24.19.0` yapın veya dosyadaki sürümün seçilmesi için eski değişkeni kaldırın. `engines.node` alanı build ortamındaki sürümü kendiliğinden yükseltmez. Logda `Node.js v22.16.0 is not supported by Astro` görünmesi bu ayarın eksik/eski olduğunu gösterir; üstteki npm `deprecated` uyarıları bu hatanın sebebi değildir. Build komutu `npm run build`, çıktı `dist` olarak kalır. [Cloudflare build sürümü seçimi](https://developers.cloudflare.com/pages/configuration/build-image/).
+
 Kullanıcının yalnız Cloudflare hesabı vardır. Ayrı Node sunucusu yerine mevcut Pages projesine Functions eklenir. Üretim için şunlar ayrıca kurulmalıdır:
 
 1. Yönetilen PostgreSQL 17+ hesabı/veritabanı ve yedekleme; bunlar Cloudflare hesabıyla kendiliğinden oluşmaz.

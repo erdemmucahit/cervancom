@@ -2,6 +2,8 @@
 
 Astro ve TypeScript ile hazırlanmış, mobil öncelikli kurumsal tanıtım sitesi.
 
+Node sürümü proje kökündeki `.node-version` dosyasında `24.19.0` olarak sabitlenir. Cloudflare Pages'te ayrıca `NODE_VERSION` ortam değişkeni tanımlıysa Production ve Preview için aynı sürümü kullanın; `package.json` içindeki `engines` alanı tek başına Cloudflare'ın Node sürümünü seçmez. Build komutu `npm run build`, çıktı dizini `dist` olmalıdır.
+
 ## Yerel çalışma
 
 ```bash
